@@ -54,6 +54,7 @@ export const BottomNavigator = ({active, navigation}) => {
     <View style={styles.main}>
       {navigators.map(el => (
         <TouchableOpacity
+            key={el.title}
           style={{
             width: '20%',
             alignItems: 'center',
