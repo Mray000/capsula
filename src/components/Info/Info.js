@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -22,8 +22,17 @@ import Time from '../../assets/time.svg';
 import Dot from '../../assets/dot.svg';
 import Star from '../../assets/star.svg';
 import {Shadow} from 'react-native-shadow-2';
+import {api} from "utils/api";
+import {Loader} from "utils/Loader";
 
 export const Info = observer(({navigation}) => {
+
+  const [filials, SetFilials] = useState();
+
+  useEffect(() => {
+    api.getFilials().then(SetFilials);
+  }, []);
+
   const social_media_links = [
     {
       icon: vk,
@@ -46,11 +55,8 @@ export const Info = observer(({navigation}) => {
       link: 'https://ok.ru/group/68419278143547',
     },
   ];
-  const addresses = [
-    {name: 'Гороховая улица, 45 '},
-    {name: 'Невский проспект, 64'},
-    {name: '7-ая линия В.О., 34'},
-  ];
+  const addresses = filials?.map(i => i.address)
+
   const our_work = [
     {icon: Dot, title: 'Окрашивания'},
     {icon: Dot, title: 'Стрижки любой сложности'},
@@ -77,7 +83,7 @@ export const Info = observer(({navigation}) => {
     },
   ];
   const phone_number = '+7 812 407-35-15';
-
+  if (!filials) return <Loader />;
   return (
     <>
       <ScrollView style={styles.main}>
@@ -117,10 +123,10 @@ export const Info = observer(({navigation}) => {
         <View style={styles.container}>
           <Text style={styles.sub_title}>наши адреса</Text>
           <View style={styles.addresses}>
-            {addresses.map(i => (
+            {addresses.map(address => (
               <View style={styles.address}>
-                <Location width={24} height={24} />
-                <Text style={styles.address_title}>{i.name}</Text>
+                <Location fill={'#CCCCCC'} width={24} height={24} />
+                <Text style={styles.address_title}>{address}</Text>
               </View>
             ))}
           </View>
@@ -128,8 +134,8 @@ export const Info = observer(({navigation}) => {
         <View style={styles.container}>
           <Text style={styles.sub_title}>время работы</Text>
           <View style={styles.time_container}>
-            <Time fill={'#CCCCCC'} width={16} height={16} />
-            <Text style={styles.time_title}>10:00 - 22:00</Text>
+            <Time  fill={'#CCCCCC'} width={16} height={16} />
+            <Text style={styles.time_title}>10:00-22:00</Text>
           </View>
           <View style={styles.last_time_container}>
             <Text style={styles.last_time_subtitle}>
