@@ -13,6 +13,8 @@ import {ServicesList} from './src/components/Services/ServicesList.js';
 import {StylistsList} from './src/components/Stylists/StylistsList.js';
 import {Calendar} from './src/components/Calendar/Calendar.js';
 import {StylistProfile} from 'components/Stylists/StylistProfile.js';
+import {Info} from "./src/components/Info/Info";
+
 const Stack = createNativeStackNavigator();
 const App = () => {
   const [is_load, setIsLoad] = useState(false);
@@ -53,6 +55,7 @@ const App = () => {
             <Stack.Screen name="StylistsList" component={StylistsList} />
             <Stack.Screen name="StylistProfile" component={StylistProfile} />
             <Stack.Screen name="Calendar" component={Calendar} />
+            <Stack.Screen name="Info" component={Info} />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
