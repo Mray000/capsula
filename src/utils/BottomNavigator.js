@@ -46,7 +46,7 @@ export const BottomNavigator = ({active, navigation}) => {
     {
       title: 'Профиль',
       icon: person,
-      to: 'Login',
+      to: 'Profile',
       is_active: active == 'profile',
     },
   ];

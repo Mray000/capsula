@@ -33,7 +33,8 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "9.13",
     "react-native-svg-transformer": "^0.14.3",
-    "react-native-video": "^5.2.0"
+    "react-native-video": "^5.2.0",
+    "toggle-switch-react-native": "^3.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

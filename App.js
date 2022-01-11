@@ -13,6 +13,11 @@ import {ServicesList} from './src/components/Services/ServicesList.js';
 import {StylistsList} from './src/components/Stylists/StylistsList.js';
 import {Calendar} from './src/components/Calendar/Calendar.js';
 import {StylistProfile} from 'components/Stylists/StylistProfile.js';
+import {Profile} from "./src/components/Profile/Profile";
+import {Settings} from "./src/components/Profile/Settings";
+import {PreLogin} from "./src/components/Profile/PreLogin";
+import {Scores} from "./src/components/Profile/Scores";
+
 const Stack = createNativeStackNavigator();
 const App = () => {
   const [is_load, setIsLoad] = useState(false);
@@ -53,6 +58,10 @@ const App = () => {
             <Stack.Screen name="StylistsList" component={StylistsList} />
             <Stack.Screen name="StylistProfile" component={StylistProfile} />
             <Stack.Screen name="Calendar" component={Calendar} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen name="PreLogin" component={PreLogin} />
+            <Stack.Screen name="Scores" component={Scores} />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
