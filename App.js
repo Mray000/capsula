@@ -18,6 +18,8 @@ import {Profile} from "./src/components/Profile/Profile";
 import {Settings} from "./src/components/Profile/Settings";
 import {PreLogin} from "./src/components/Profile/PreLogin";
 import {Scores} from "./src/components/Profile/Scores";
+import {EntryDetails} from "./src/components/Profile/EntryDetails";
+import {EditEntry} from "./src/components/Profile/EditEntry";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -64,6 +66,8 @@ const App = () => {
             <Stack.Screen name="Settings" component={Settings} />
             <Stack.Screen name="PreLogin" component={PreLogin} />
             <Stack.Screen name="Scores" component={Scores} />
+            <Stack.Screen name="EntryDetails" component={EntryDetails} />
+            <Stack.Screen name="EditEntry" component={EditEntry} />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>

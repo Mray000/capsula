@@ -9,10 +9,13 @@ import {EmptyScreen} from './EmptyProfile';
 import {FeatureCard} from './cards/FeatureCard';
 import {HistoryCard} from './cards/HistoryCard';
 import {ScoreCard} from './cards/ScoreCard';
+import {authentication} from "store/authentication";
 
 export const Profile = observer(({navigation}) => {
   const [isEmpty, setIsEmpty] = useState(false);
-
+  if (!authentication.is_login){
+    navigation.navigate("Login")
+  }
   return (
     <>
       <ScrollView

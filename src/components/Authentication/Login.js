@@ -34,15 +34,10 @@ export const Login = observer(({navigation}) => {
     }
   };
   let is_button_disabled = is_load || error == 'Введите верный номер' || !phone;
-  if (authentication.is_login)
-    return (
-      <View style={{padding: 20}}>
-        <Text style={{fontSize: 18, color: 'black', fontWeight: '700'}}>
-          Вы уже в системе
-        </Text>
-        <Button text={'Выйти'} onPress={() => authentication.logout()} />
-      </View>
-    );
+  if (authentication.is_login){
+    navigation.navigate("Login")
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == 'ios' ? 'padding' : null}

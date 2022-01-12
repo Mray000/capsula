@@ -1,0 +1,140 @@
+import React, {useState} from 'react';
+import {observer} from 'mobx-react-lite';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Header} from 'utils/Header';
+import {dimisions} from 'utils/demisions';
+import {moderateScale} from 'utils/Normalize';
+import {Button} from 'utils/Button';
+import ArrowRight from "assets/arrow_right.svg";
+import {SuccessModal} from "utils/SuccessModal";
+
+export const EditEntry = observer(({navigation}) => {
+  const [newDate, setNewDate] = useState()
+  const [successEditEntry, setSuccessEditEntry] = useState(false)
+  const editEntry = () => {
+    setSuccessEditEntry(true)
+  }
+  return (
+    <View style={styles.container}>
+      <Header onBack={navigation.goBack} title={'Перенос записи'} />
+      <View style={{flex: 1}}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: newDate ? '#FCFCFC'  :'#EFEFEF' ,
+            borderWidth: newDate ? 1 : 0,
+            borderColor: '#E8E8E8',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+            marginTop: 10,
+            borderRadius: 15,
+            paddingHorizontal: 20,
+            height: dimisions.height / 12,
+          }}
+          onPress={() => navigation.navigate("Calendar")}>
+          <Text
+            style={{
+              color: newDate ? '#B0B0B0' : 'black' ,
+              fontFamily: 'Inter-Medium',
+              fontSize: moderateScale(16),
+            }}>
+            Укажите новую дату и время
+          </Text>
+          <ArrowRight fill={newDate ? '#D6D6D6' : 'black' } />
+        </TouchableOpacity>
+        <DisabledTextField value={'Липовая 15'} headerTitle={'филиал'} />
+        <DisabledTextField
+          value={'Женская стрижка с укладкой '}
+          headerTitle={'услуга'}
+        />
+        <DisabledTextField
+          value={'Анна Стрельникова '}
+          headerTitle={'стилист 7 категории'}
+        />
+      </View>
+      <Button onPress={editEntry} text={'Перенести запись'} />
+      <SuccessModal underButtonTitle={"Ваши записи находятся в разделе «Профиль»"} navigation={navigation} open={successEditEntry} >
+        <Text style={styles.success_edit_entry_text}>Мы перенесли вашу запись</Text>
+        <Text style={styles.success_edit_entry_sub_text}>Новое время вашей записи:</Text>
+        <Text style={styles.success_edit_entry_date}>5 ноября в 19:00</Text>
+        <Text style={styles.success_edit_entry_date}>по адресу: Липовая 15</Text>
+      </SuccessModal>
+    </View>
+  );
+});
+
+const DisabledTextField = ({headerTitle, value}) => {
+  return (
+    <View
+      style={styles.disabled_text_field}>
+      <View style={{width: '90%'}}>
+        <Text
+          style={styles.disabled_text_field_header_text}>
+          {headerTitle}
+        </Text>
+        <Text
+          style={styles.disabled_text_field_value}>
+          {value}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 10,
+    paddingBottom: 25,
+    paddingHorizontal:
+      dimisions.width * 0.03 +
+      (dimisions.width * 0.94 - dimisions.width * 0.94 * 0.97) / 2,
+  },
+  disabled_text_field: {
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: '#EBEBEB',
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 10,
+    height: dimisions.height / 12,
+  },
+  disabled_text_field_header_text: {
+    color: '#BFBFBF',
+    fontFamily: 'Inter-Regular',
+    fontSize: moderateScale(12),
+  },
+  disabled_text_field_value: {
+    color: 'black',
+    fontFamily: 'Inter-Medium',
+    fontSize: moderateScale(14),
+  },
+  success_edit_entry_text: {
+    textAlign: "center",
+    fontFamily: 'Inter-SemiBold',
+    fontSize: moderateScale(28),
+    color: 'black',
+    lineHeight: 34,
+    marginTop: 8,
+    marginBottom: 24,
+  },
+  success_edit_entry_sub_text: {
+    textAlign: "center",
+    fontFamily: 'Inter-Regular',
+    fontSize: moderateScale(16),
+    color: '#808080',
+    lineHeight: 20,
+    marginBottom: 12,
+  },
+  success_edit_entry_date: {
+    textAlign: "center",
+    fontFamily: 'Inter-SemiBold',
+    fontSize: moderateScale(18),
+    color: 'black',
+    lineHeight: 18,
+    marginBottom: 8,
+  },
+});

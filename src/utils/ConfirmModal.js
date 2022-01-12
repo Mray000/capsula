@@ -3,15 +3,15 @@ import {Modal, Text, View, StyleSheet, TouchableOpacity} from "react-native";
 import {moderateScale} from "utils/Normalize";
 import CloseIcon from "../assets/close.svg"
 
-export const ConfirmModal = ({isOpen, onPressClose, onPressConfirm, modalText,modalSutText, cancelText, confirmText}) => {
-  if(!isOpen){
+export const ConfirmModal = ({open, onPressClose, onPressConfirm, modalText,modalSutText, cancelText, confirmText}) => {
+  if(!open){
     return null
   }
 
   return (
       <Modal
         transparent={true}
-        visible={isOpen}
+        visible={open}
         onRequestClose={onPressClose}
       >
         <View style={styles.centered_view}>
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.8)'
   },
   modal_view: {
+    width: "75%",
     backgroundColor: "white",
     borderRadius: 15,
     paddingTop: 24,

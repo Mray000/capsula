@@ -11,7 +11,7 @@ export const FeatureCard = observer(({navigation, name}) => {
   return (
     <Shadow viewStyle={{width: '100%', marginBottom: 8}}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Scores')}
+        onPress={() => navigation.navigate('EntryDetails')}
         style={styles.container}>
         <View style={styles.card}>
           <View>

@@ -16,6 +16,7 @@ import {Shadow} from 'react-native-shadow-2';
 import {BottomNavigator} from 'utils/BottomNavigator';
 import ToggleSwitch from "toggle-switch-react-native";
 import {ConfirmModal} from "utils/ConfirmModal";
+import {authentication} from "store/authentication";
 
 export const Settings = observer(({navigation}) => {
   const [name, setName] = useState('Alexandra');
@@ -23,7 +24,8 @@ export const Settings = observer(({navigation}) => {
   const [notification, setNotification] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    await authentication.logout()
     navigation.navigate("PreLogin")
   }
 
@@ -160,7 +162,7 @@ export const Settings = observer(({navigation}) => {
                 modalSutText={"Вы уверены, что хотите выйти?"}
                 cancelText={"Отмена"}
                 confirmText={"Выйти"}
-                isOpen={showLogoutConfirm}
+                open={showLogoutConfirm}
                 onPressClose={() => setShowLogoutConfirm(false)}
                 onPressConfirm={logoutHandler}
               />
