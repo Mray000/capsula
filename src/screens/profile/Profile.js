@@ -37,7 +37,6 @@ export const Profile = ({navigation}) => {
   if (!isAuth) {
     navigation.navigate('Login');
   }
-
   if (loading || !isFocused) return <Loader />;
   return (
     <>
@@ -55,12 +54,13 @@ export const Profile = ({navigation}) => {
             </View>
             <Text style={styles.user_name}>{profile.name}</Text>
           </View>
-          {profile?.visits === 0 && !loyality_cards.id === 0 ? (
+          {profile?.visits === 0 && !allEntries?.length ? (
             <EmptyScreen navigation={navigation} />
           ) : (
             <>
               <View style={styles.content_container}>
-                {allEntries?.length > 0 ? (
+                {allEntries?.filter(i => beforeNowDates(i.datetime))?.length >
+                0 ? (
                   <>
                     <Text style={styles.content_subtitle}>
                       мои будущие записи
@@ -92,7 +92,8 @@ export const Profile = ({navigation}) => {
                   </>
                 )}
               </View>
-              {allEntries?.length > 0 && (
+              {allEntries?.filter(i => afterNowDates(i.datetime)).length >
+                0 && (
                 <View style={styles.content_container}>
                   <Text style={styles.content_subtitle}>история посещений</Text>
                   {allEntries

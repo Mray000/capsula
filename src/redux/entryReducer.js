@@ -165,11 +165,11 @@ export const getSalesTC = () => async dispatch => {
     let salese_data = await Promise.all(
       filials.data.map(async filial => await entryAPI.getSales(filial.id)),
     );
-
     const all_filials_sales = salese_data.map(sale =>
       sale
         .filter(el => el.category_id === 4218539)
         .filter(el => el.image_group?.images?.basic?.path)
+        .filter(el => el.active === 1)
         .map(el => ({
           image: el.image_group?.images?.basic?.path,
           title: el.booking_title,
@@ -187,7 +187,6 @@ export const getSalesTC = () => async dispatch => {
         unique[sales_array[i].id] = 1;
       }
     }
-
     dispatch(setSales(distinct));
   } catch (e) {
     console.log('sales', e.response.data);
