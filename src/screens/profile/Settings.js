@@ -19,6 +19,8 @@ import {logout} from '../../redux/authReducer';
 import {TextInputMask} from 'react-native-masked-text';
 import {InputWithLabel} from 'utils/InputWithLabel';
 import {BirthDayPicker} from './BirthDayPicker';
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 
 export const Settings = ({navigation}) => {
   const dispatch = useDispatch();
@@ -44,16 +46,6 @@ export const Settings = ({navigation}) => {
     );
     navigation.navigate('Profile');
   };
-  if (is_birthday_picker_open)
-    return (
-      <BirthDayPicker
-        SetSelectedDate={date => {
-          setBirthday(date);
-          SetIsBirthdayPickerOpen(false);
-        }}
-        CloseModal={() => SetIsBirthdayPickerOpen(false)}
-      />
-    );
   return (
     <>
       <ScrollView
@@ -191,6 +183,19 @@ export const Settings = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
+      <DatePicker
+        modal
+        mode="date"
+        open={is_birthday_picker_open}
+        date={moment().toDate()}
+        maximumDate={moment().toDate()}
+        onConfirm={date => {
+          console.log(date);
+          setBirthday(moment(date).format("YYYY-MM-DD"))
+          SetIsBirthdayPickerOpen(false);
+        }}
+        onCancel={() => SetIsBirthdayPickerOpen(false)}
+      />
       <BottomNavigator active="profile" navigation={navigation} />
     </>
   );
