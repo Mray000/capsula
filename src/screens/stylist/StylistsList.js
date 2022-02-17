@@ -9,7 +9,11 @@ import {BottomNavigator} from 'utils/BottomNavigator';
 import Lock from 'assets/lock.svg';
 import {useDispatch, useSelector} from 'react-redux';
 import {setStylist} from '../../redux/entryReducer';
-import {getAllStylistsTC, getStylistsTC, setAllStylists} from '../../redux/stylistReducer';
+import {
+  getAllStylistsTC,
+  getStylistsTC,
+  setAllStylists,
+} from '../../redux/stylistReducer';
 
 export const StylistsList = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -32,8 +36,8 @@ export const StylistsList = ({navigation, route}) => {
       );
     }
     return () => {
-      dispatch(setAllStylists([]))
-    }
+      dispatch(setAllStylists([]));
+    };
   }, [is_global]);
 
   if (!stylists.length) return <Loader />;
@@ -125,14 +129,13 @@ export const StylistsList = ({navigation, route}) => {
         ) : null}
         <FlatList
           keyExtractor={item => item.id}
-          style={{backgroundColor: '#FCFCFC', paddingBottom: 20}}
+          style={{backgroundColor: '#FCFCFC', paddingBottom: verticalScale(65)}}
           data={stylists
-            .filter(stylist => stylist.name !== "Позвони мне")
+            .filter(stylist => stylist.name !== 'Позвони мне')
             .sort((a, b) => Number(b.weight) - Number(a.weight))
             .filter(stylist =>
               stylist.name.toLowerCase().includes(filter.toLocaleLowerCase()),
-            )
-           }
+            )}
           renderItem={({item}) => (
             <Stylist
               key={item.id}

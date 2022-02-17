@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Header} from 'utils/Header';
 import {moderateScale, scale, verticalScale} from 'utils/Normalize';
 import Star from 'assets/star.svg';
@@ -43,7 +50,7 @@ export const StylistProfile = ({route, navigation}) => {
           navigation={navigation}
           onBack={() => navigation.goBack()}
         />
-        <ScrollView
+        <View
           stickyHeaderIndices={[1]}
           style={{marginBottom: verticalScale(60)}}>
           <View style={{alignItems: 'center', paddingHorizontal: 20}}>
@@ -145,9 +152,10 @@ export const StylistProfile = ({route, navigation}) => {
               style={{
                 marginTop: 10,
               }}>
-              {comments?.map(comment => (
-                <Comment comment={comment} key={comment.id} />
-              ))}
+              <FlatList
+                data={comments}
+                renderItem={({item}) => <Comment comment={item} key={item.id} />}
+              />
             </View>
           ) : (
             <View
@@ -170,7 +178,7 @@ export const StylistProfile = ({route, navigation}) => {
               />
             </View>
           )}
-        </ScrollView>
+        </View>
       </View>
       <BottomNavigator active={'stylists'} navigation={navigation} />
     </>
