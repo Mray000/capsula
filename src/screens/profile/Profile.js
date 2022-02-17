@@ -15,6 +15,8 @@ import {Button} from 'utils/Button';
 import {ScoreCard} from '../../components/profile/scoreCard';
 import {useIsFocused} from '@react-navigation/core';
 import {authMe} from '../../redux/authReducer';
+import moment from 'moment';
+
 
 export const Profile = ({navigation}) => {
   const dispatch = useDispatch();
@@ -92,13 +94,13 @@ export const Profile = ({navigation}) => {
                   </>
                 )}
               </View>
-              {allEntries?.filter(i => afterNowDates(i.datetime)).length >
-                0 && (
+              {allEntries?.filter(i => afterNowDates(i.datetime)).length > 0 && (
                 <View style={styles.content_container}>
                   <Text style={styles.content_subtitle}>история посещений</Text>
                   {allEntries
+                    .sort((a, b) => moment(b.datetime) - moment(a.datetime))
                     .filter(i => afterNowDates(i.datetime))
-                    .splice(0, 10)
+
                     .map(i => (
                       <HistoryCard entry={i} />
                     ))}

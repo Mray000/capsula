@@ -1,14 +1,14 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {moderateScale} from 'utils/Normalize';
-import {formatDateISOToString} from 'utils/dateUtils';
+import {formatDateISOToString, formatDateWithYearISOToString} from 'utils/dateUtils';
 
 export const HistoryCard = ({entry}) => {
   return (
     <View style={styles.history_card}>
       <View style={styles.history_card_info}>
         <Text style={styles.history_card_time}>
-          {formatDateISOToString(entry.datetime)}
+          {formatDateWithYearISOToString(entry.datetime)}
         </Text>
         <Text style={styles.history_card_service}>
           {entry?.services.map(i => i.title)}

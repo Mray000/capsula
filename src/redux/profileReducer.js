@@ -1,6 +1,6 @@
 import {profileAPI} from '../api/profileApi';
 import {setLoading} from './commonReducer';
-import {LOYALITY_CARD_ID} from '../constants';
+import {CAPSULA_EMAIL, COMPANY_ID, LOYALITY_CARD_ID} from '../constants';
 import {AsyncStorage} from 'react-native';
 import {setEntryError, setEntryStatus} from './entryReducer';
 
@@ -64,7 +64,7 @@ export const getLoyalityCardsTC = user_id => async dispatch => {
   dispatch(setLoading(true));
   try {
     const res = await profileAPI.getLoyalityCards(user_id);
-    dispatch(setLoyalityCard(res.data.find(i => i.id === LOYALITY_CARD_ID)));
+    dispatch(setLoyalityCard(res.data.find(i => i.type.id === LOYALITY_CARD_ID)));
   } catch (e) {
     console.log(e);
   }
@@ -75,7 +75,7 @@ export const getAllEntriesTC = () => async dispatch => {
   try {
     const token = await AsyncStorage.getItem('token');
     const res = await profileAPI.getAllEntries(token);
-    dispatch(setAllEntries(res.data.filter(i => !i.deleted)));
+    dispatch(setAllEntries(res.data.filter(i => !i.deleted).filter(i => i.company.site === CAPSULA_EMAIL)));
   } catch (e) {
     console.log(e.response.data);
   }

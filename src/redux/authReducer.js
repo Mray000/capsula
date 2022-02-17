@@ -127,10 +127,10 @@ export const authMe = () => async dispatch => {
       dispatch(setUserData(user_id, phone, token));
       dispatch(setIsAuth(true));
     }
-    // await AsyncStorage.setItem('token', "2804f52ec42edcdbe0e80b827f018fd8");
-    // await AsyncStorage.setItem('phone', "79675557371");
-    // await AsyncStorage.setItem('user_id', "125672700");
-    // dispatch(setUserData("125672700", "79675557371", "2804f52ec42edcdbe0e80b827f018fd8"));
+    // await AsyncStorage.setItem('token', "78b793f92c4de110d0e6712390570e90");
+    // await AsyncStorage.setItem('phone', "79818273221");
+    // await AsyncStorage.setItem('user_id', "102362592");
+    // dispatch(setUserData("102362592", "79818273221", "78b793f92c4de110d0e6712390570e90"));
     // dispatch(setIsAuth(true));
   } catch (e) {
     console.log(e.response.data);

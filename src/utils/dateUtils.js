@@ -13,6 +13,10 @@ export const formatDateAndTimeToISO = (date, time) => {
 export const formatDateISOToString = date => {
   return moment(date).format('D MMMM в H:mm');
 };
+export const formatDateWithYearISOToString = date => {
+  return moment(date).format('D MMMM YYYY в H:mm');
+};
+
 
 export const dateNow = format => {
   return moment().format(format);
