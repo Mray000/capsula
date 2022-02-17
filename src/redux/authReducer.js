@@ -48,30 +48,30 @@ export const login = (phone, code) => async dispatch => {
   dispatch(setLoading(true));
   try {
     //FAKE
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        dispatch(setLoading(true));
-        resolve(
-          dispatch(setLoading(false)),
-          AsyncStorage.setItem('token', '2804f52ec42edcdbe0e80b827f018fd8'),
-          AsyncStorage.setItem('phone', '79675557371'),
-          AsyncStorage.setItem('user_id', '125672700'),
-          dispatch(
-            setUserData(
-              '125672700',
-              '79675557371',
-              '2804f52ec42edcdbe0e80b827f018fd8',
-            ),
-          ),
-          dispatch(setIsAuth(true)),
-          dispatch(setAuthStatus('success')),
-        );
-        // reject(
-        //   dispatch(setAuthStatus('error')),
-        //   dispatch(setAuthError('error')),
-        // );
-      }, 2000);
-    });
+    // new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     dispatch(setLoading(true));
+    //     resolve(
+    //       dispatch(setLoading(false)),
+    //       AsyncStorage.setItem('token', '2804f52ec42edcdbe0e80b827f018fd8'),
+    //       AsyncStorage.setItem('phone', '79675557371'),
+    //       AsyncStorage.setItem('user_id', '125672700'),
+    //       dispatch(
+    //         setUserData(
+    //           '125672700',
+    //           '79675557371',
+    //           '2804f52ec42edcdbe0e80b827f018fd8',
+    //         ),
+    //       ),
+    //       dispatch(setIsAuth(true)),
+    //       dispatch(setAuthStatus('success')),
+    //     );
+    //     // reject(
+    //     //   dispatch(setAuthStatus('error')),
+    //     //   dispatch(setAuthError('error')),
+    //     // );
+    //   }, 2000);
+    // });
 
     //REAL
     const res = await authAPI.login(phone, code);
