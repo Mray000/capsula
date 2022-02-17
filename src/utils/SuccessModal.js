@@ -10,7 +10,6 @@ import {dimisions} from 'utils/demisions';
 export const SuccessModal = ({
   open,
   onPressClose,
-  navigation,
   children,
   underButtonTitle,
   buttonText = "Ок"
@@ -29,7 +28,7 @@ export const SuccessModal = ({
             top: verticalScale(10),
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Entry')}
+            onPress={onPressClose}
             style={styles.close_button}>
             <X width={13} height={13} fill="#45413E" />
           </TouchableOpacity>
@@ -44,7 +43,7 @@ export const SuccessModal = ({
             {underButtonTitle}
           </Text>
         )}
-        <Button onPress={() => navigation.navigate('Entry')} text={buttonText} />
+        <Button onPress={onPressClose} text={buttonText} />
       </View>
     </Modal>
   );

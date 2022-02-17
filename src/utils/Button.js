@@ -15,6 +15,7 @@ export const Button = ({
 }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       style={{
         backgroundColor: disabled ? '#D3D3D3' : 'black',
         width: width || '100%',

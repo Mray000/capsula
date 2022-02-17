@@ -1,49 +1,54 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Login} from './src/components/Authentication/Login.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {authentication} from './src/store/authentication.js';
-import {Code} from './src/components/Authentication/Code.js';
-import {Filials} from './src/components/Filials/Filials.js';
-import {Entry} from './src/components/Entry/Entry.js';
-import {ServicesList} from './src/components/Services/ServicesList.js';
-import {StylistsList} from './src/components/Stylists/StylistsList.js';
-import {Calendar} from './src/components/Calendar/Calendar.js';
-import {StylistProfile} from 'components/Stylists/StylistProfile.js';
-import {Info} from "./src/components/Info/Info";
-import {Profile} from "./src/components/Profile/Profile";
-import {Settings} from "./src/components/Profile/Settings";
-import {PreLogin} from "./src/components/Profile/PreLogin";
-import {Scores} from "./src/components/Profile/Scores";
-import {EntryDetails} from "./src/components/Profile/EntryDetails";
-import {EditEntry} from "./src/components/Profile/EditEntry";
+import {Login} from './src/screens/authentication/login.js';
+import {Code} from './src/screens/authentication/code.js';
+import {Filials} from './src/screens/filials/Filials.js';
+import {Entry} from './src/screens/entry/entry.js';
+import {ServicesList} from './src/screens/servises/ServicesList.js';
+import {StylistsList} from './src/screens/stylist/StylistsList.js';
+import {Calendar} from './src/screens/calendar/Calendar.js';
+import {StylistProfile} from 'screens/stylist/StylistProfile.js';
+import {Info} from './src/screens/information/Info';
+import {Profile} from './src/screens/profile/Profile';
+import {Settings} from './src/screens/profile/Settings';
+import {PreLogin} from './src/screens/profile/PreLogin';
+import {Scores} from './src/screens/profile/Scores';
+import {EntryDetails} from './src/screens/profile/EntryDetails';
+import {EditEntry} from './src/screens/profile/EditEntry';
+import {CreateEntry} from './src/screens/entry/createEntry';
+import {Provider, useDispatch, useSelector} from 'react-redux';
+import {store} from './src/redux/store';
+import {authMe} from './src/redux/authReducer';
+import {getProfileInfoTC} from './src/redux/profileReducer';
+import {EntryCode} from './src/screens/entry/entryCode';
+import {CurrentSale} from './src/screens/entry/currentSale';
+import {NoInternetModal} from "utils/NoInternetModal";
+import {useNetInfo} from "@react-native-community/netinfo";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  const [is_load, setIsLoad] = useState(false);
+  const dispatch = useDispatch();
+  const netInfo = useNetInfo();
+  const {id} = useSelector(state => state.auth);
+  useEffect(() => {
+    if(id)
+      dispatch(getProfileInfoTC(id));
+  },[id])
 
   useEffect(() => {
     SplashScreen.hide();
-    (async () => {
-      let token = await AsyncStorage.getItem('token');
-      let phone = await AsyncStorage.getItem('phone');
-      if (token) {
-        authentication.setToken(token);
-        authentication.setPhone(phone);
-        authentication.setIsLogin(true);
-      }
-      setIsLoad(true);
-    })();
+    dispatch(authMe());
   }, []);
 
-  if (!is_load) return null;
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
+
       <NavigationContainer>
+        <NoInternetModal open={!netInfo.isInternetReachable} />
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
@@ -56,12 +61,20 @@ const App = () => {
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen name="Entry" component={Entry} />
+            <Stack.Screen name="CreateEntry" component={CreateEntry} />
+            <Stack.Screen name="CurrentSale" component={CurrentSale} />
+            <Stack.Screen name="EntryCode" component={EntryCode} />
+
             <Stack.Screen name="Filials" component={Filials} />
+
             <Stack.Screen name="ServicesList" component={ServicesList} />
             <Stack.Screen name="StylistsList" component={StylistsList} />
             <Stack.Screen name="StylistProfile" component={StylistProfile} />
+
             <Stack.Screen name="Calendar" component={Calendar} />
+
             <Stack.Screen name="Info" component={Info} />
+
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Settings" component={Settings} />
             <Stack.Screen name="PreLogin" component={PreLogin} />
@@ -76,3 +89,11 @@ const App = () => {
 };
 
 export default App;
+
+export const AppWrapper = () => {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+};
