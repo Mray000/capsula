@@ -38,7 +38,6 @@ class BottomSheet extends Component {
         useNativeDriver: false,
       }).start(() => {
         pan.setValue({x: 0, y: 0});
-        console.log(animatedHeight);
         this.setState({
           modalVisible: visible,
           animatedHeight: new Animated.Value(0),
@@ -66,7 +65,6 @@ class BottomSheet extends Component {
         if (gestureDistance > gestureLimitArea) {
           this.setModalVisible(false);
         } else {
-          console.log(pan);
           Animated.spring(pan, {
             toValue: {x: 0, y: 0},
             useNativeDriver: false,

@@ -16,38 +16,42 @@ import info from 'assets/info.svg';
 import person from 'assets/person.svg';
 import {moderateScale, verticalScale} from './Normalize';
 import {dimisions} from './demisions';
+import {useSelector} from "react-redux";
 export const BottomNavigator = ({active, navigation}) => {
+  const isAuth = useSelector(state => state.auth.isAuth);
+
+
   let navigators = [
     {
       title: 'Филиалы',
       icon: map,
       to: 'Filials',
-      is_active: active == 'filials',
+      is_active: active === 'filials',
     },
     {
       title: 'Стилисты',
       icon: star,
       to: 'StylistsList',
-      is_active: active == 'stylists',
+      is_active: active === 'stylists',
     },
     {
       title: 'Запись',
       icon: entry,
       to: 'Entry',
-      is_active: active == 'entry',
+      is_active: active === 'entry',
     },
 
     {
       title: 'Инфо',
       icon: info,
       to: 'Info',
-      is_active: active == 'info',
+      is_active: active === 'info',
     },
     {
       title: 'Профиль',
       icon: person,
-      to: 'Login',
-      is_active: active == 'profile',
+      to: isAuth ? 'Profile' : "Login",
+      is_active: active === 'profile',
     },
   ];
   return (

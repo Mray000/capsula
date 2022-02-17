@@ -40,6 +40,7 @@ export default class SalesSwipper extends Component {
     this.state = {
       index: 0,
       data: this.props.data,
+      navigation: this.props.navigation,
     };
     if (Platform.OS === 'android') {
       UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -60,16 +61,11 @@ export default class SalesSwipper extends Component {
 
   render() {
     const itemWidth = Dimensions.get('window').width * 0.94;
-    const separatorWidth = 0;
-    const totalItemWidth = itemWidth + separatorWidth;
-
     return (
       <View
         style={{
           height: itemWidth * (6.5 / 10.5),
           marginTop: 10,
-          // justifyContent: 'center',
-          // marginLeft: -10,
         }}>
         <Shadow
           startColor="#00000012"
@@ -99,7 +95,7 @@ export default class SalesSwipper extends Component {
                 item={item}
                 width={itemWidth}
                 imageKey={this.props.imageKey}
-                onPress={this.props.onPress}
+                onPress={() => this.state.navigation.navigate("CurrentSale", {sale_id: item.id})}
                 index={index}
                 active={index === this.state.index}
                 local={this.props.local}
