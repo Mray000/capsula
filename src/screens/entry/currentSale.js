@@ -76,8 +76,7 @@ export const CurrentSale = ({navigation, route}) => {
                 color: 'black',
                 fontFamily: 'Inter-SemiBold',
                 fontSize: moderateScale(18),
-                lineHeight: 18,
-                marginTop: 15,
+                marginTop: 10,
                 marginBottom: 8,
               }}>
               {currentSaleInfo.booking_title}

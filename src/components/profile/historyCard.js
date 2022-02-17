@@ -22,10 +22,10 @@ export const HistoryCard = ({entry}) => {
           />
           <Text style={styles.history_master_name}>{entry?.staff.name}</Text>
         </View>
-        <Text style={styles.history_card_price_count}>
-          {entry?.services.reduce((acc, el) => acc + el.cost, 0)} ₽
-        </Text>
       </View>
+      <Text style={styles.history_card_price_count}>
+        {entry?.services.reduce((acc, el) => acc + el.cost, 0)} ₽
+      </Text>
     </View>
   );
 };
@@ -75,9 +75,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   history_card_price_count: {
+    right: 10,
+    bottom: 2,
+    position: "absolute",
     fontFamily: 'Inter-SemiBold',
     color: '#000000',
     fontSize: moderateScale(18),
-    lineHeight: 18,
   },
 });
