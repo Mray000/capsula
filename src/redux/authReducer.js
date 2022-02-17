@@ -100,15 +100,15 @@ export const getCode = phone => async dispatch => {
     dispatch(setAuthStatus('success'));
     console.log(res.data)
     //FAKE
-    new Promise((resolve, reject) => {
-      dispatch(setLoading(true));
-      setTimeout(() => {
-        resolve(
-          dispatch(setLoading(false)),
-          dispatch(setAuthStatus('success')),
-        );
-      }, 2000);
-    });
+    // new Promise((resolve, reject) => {
+    //   dispatch(setLoading(true));
+    //   setTimeout(() => {
+    //     resolve(
+    //       dispatch(setLoading(false)),
+    //       dispatch(setAuthStatus('success')),
+    //     );
+    //   }, 2000);
+    // });
   } catch (e) {
     console.log(e);
     dispatch(setAuthStatus('error'));
