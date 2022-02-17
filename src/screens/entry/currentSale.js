@@ -86,7 +86,6 @@ export const CurrentSale = ({navigation, route}) => {
                 color: 'black',
                 fontFamily: 'Inter-SemiBold',
                 fontSize: moderateScale(18),
-                lineHeight: 18,
                 marginBottom: 8,
               }}>
               {currentSaleInfo.price_min === currentSaleInfo.price_max
