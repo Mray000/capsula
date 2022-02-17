@@ -27,7 +27,7 @@ export const Login = ({navigation}) => {
 
   useEffect(() => {
     if (status === 'success') {
-      navigation.navigate('Code', {phone: phone});
+      navigation.navigate('Code', {phone: FormatPhone(phone)});
     }
     return () => {
       dispatch(setAuthStatus(null));

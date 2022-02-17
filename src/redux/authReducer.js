@@ -83,7 +83,7 @@ export const login = (phone, code) => async dispatch => {
     AsyncStorage.setItem('token', res.data.user_token);
     AsyncStorage.setItem('phone', res.data.phone);
     AsyncStorage.setItem('user_id', user_id);
-    // await dispatch(authMe());
+    await dispatch(authMe());
     dispatch(setAuthStatus('success'));
   } catch (e) {
     console.log(e.response.data)
