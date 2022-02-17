@@ -25,8 +25,8 @@ import {authMe} from './src/redux/authReducer';
 import {getProfileInfoTC} from './src/redux/profileReducer';
 import {EntryCode} from './src/screens/entry/entryCode';
 import {CurrentSale} from './src/screens/entry/currentSale';
-import {NoInternetModal} from "utils/NoInternetModal";
-import {useNetInfo} from "@react-native-community/netinfo";
+import {NoInternetModal} from 'utils/NoInternetModal';
+import {useNetInfo} from '@react-native-community/netinfo';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -34,9 +34,8 @@ const App = () => {
   const netInfo = useNetInfo();
   const {id} = useSelector(state => state.auth);
   useEffect(() => {
-    if(id)
-      dispatch(getProfileInfoTC(id));
-  },[id])
+    if (id) dispatch(getProfileInfoTC(id));
+  }, [id]);
 
   useEffect(() => {
     SplashScreen.hide();
@@ -48,7 +47,9 @@ const App = () => {
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
 
       <NavigationContainer>
-        <NoInternetModal open={!netInfo.isInternetReachable} />
+        <NoInternetModal
+          open={netInfo.details ? !netInfo.isInternetReachable : false}
+        />
         <Stack.Navigator
           screenOptions={{
             headerShown: false,

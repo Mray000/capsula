@@ -18,6 +18,7 @@ import {editProfileInfoTC} from '../../redux/profileReducer';
 import {logout} from '../../redux/authReducer';
 import {TextInputMask} from 'react-native-masked-text';
 import {InputWithLabel} from 'utils/InputWithLabel';
+import {BirthDayPicker} from './BirthDayPicker';
 
 export const Settings = ({navigation}) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export const Settings = ({navigation}) => {
 
   const [name, setName] = useState(profile.name ?? '');
   const [birthday, setBirthday] = useState(profile.birth_date ?? '');
+  const [is_birthday_picker_open, SetIsBirthdayPickerOpen] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const logoutHandler = async () => {
@@ -42,7 +44,16 @@ export const Settings = ({navigation}) => {
     );
     navigation.navigate('Profile');
   };
-
+  if (is_birthday_picker_open)
+    return (
+      <BirthDayPicker
+        SetSelectedDate={date => {
+          setBirthday(date);
+          SetIsBirthdayPickerOpen(false);
+        }}
+        CloseModal={() => SetIsBirthdayPickerOpen(false)}
+      />
+    );
   return (
     <>
       <ScrollView
@@ -119,24 +130,30 @@ export const Settings = ({navigation}) => {
                   paddingHorizontal: 20,
                   height: dimisions.height / 10,
                 }}>
-                <View style={{width: '90%', justifyContent: 'space-around'}}>
-                  {birthday ? (
-                    <Text
-                      style={{
-                        color: '#BFBFBF',
-                        marginTop: 10,
-                        fontFamily: 'Inter-Regular',
-                        fontSize: moderateScale(14),
-                      }}>
-                      {'дата рождения'}
-                    </Text>
-                  ) : null}
-                  <TextInputMask
+                <TouchableOpacity
+                  onPress={() => SetIsBirthdayPickerOpen(true)}
+                  style={{width: '90%', justifyContent: 'space-around'}}>
+                  <Text
                     style={{
-                      width: '100%',
+                      color: '#BFBFBF',
+                      marginTop: 10,
+                      fontFamily: 'Inter-Regular',
+                      fontSize: moderateScale(14),
+                    }}>
+                    дата рождения
+                  </Text>
+                  <Text
+                    style={{
                       color: 'black',
                       fontFamily: 'Inter-Medium',
                       fontSize: moderateScale(16),
+                    }}>
+                    {birthday}
+                  </Text>
+                  {/* <TextInputMask
+                    style={{
+                      width: '100%',
+
                       alignItems: 'flex-end',
                     }}
                     type={'datetime'}
@@ -148,11 +165,10 @@ export const Settings = ({navigation}) => {
                     placeholderTextColor={'#D9D9D9'}
                     underlineColorAndroid="transparent"
                     placeholder={'необязателно'}
-                  />
-                </View>
+                  /> */}
+                </TouchableOpacity>
               </TouchableOpacity>
             </Shadow>
-
             <InputWithLabel
               editable={false}
               label={'почта'}

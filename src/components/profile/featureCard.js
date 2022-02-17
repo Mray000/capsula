@@ -17,7 +17,7 @@ export const FeatureCard = ({navigation, entry}) => {
         onPress={() =>
           navigation.navigate('EntryDetails', {
             entryId: entry?.id,
-            company_id: entry?.company?.id
+            company_id: entry?.company?.id,
           })
         }
         style={styles.container}>
@@ -33,7 +33,7 @@ export const FeatureCard = ({navigation, entry}) => {
               <Text style={styles.card_service_text}>
                 {entry?.services.map(i => i.title)}
               </Text>
-              <ArrowRight fill={onPress ? 'black' : '#E8E8E8'}  />
+              <ArrowRight fill={onPress ? 'black' : '#E8E8E8'} />
             </View>
           </View>
           <View style={styles.card_price}>
@@ -44,11 +44,11 @@ export const FeatureCard = ({navigation, entry}) => {
               />
               <Text style={styles.master_name}>{entry?.staff.name}</Text>
             </View>
-            <Text style={styles.card_price_count}>
-              {entry?.services.reduce((acc, el) => acc + el.cost, 0)} ₽
-            </Text>
           </View>
         </View>
+        <Text style={styles.card_price_count}>
+            {entry?.services.reduce((acc, el) => acc + el.cost, 0)} ₽
+          </Text>
       </TouchableOpacity>
     </Shadow>
   );
@@ -112,9 +112,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   card_price_count: {
+    right: 10,
+    bottom: 2,
+    position: "absolute",
     fontFamily: 'Inter-SemiBold',
     color: '#000000',
     fontSize: moderateScale(18),
-    lineHeight: 18,
   },
 });

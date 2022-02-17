@@ -29,6 +29,7 @@ export const FilialsMap = ({filials, selected_filial, ShowFilialData}) => {
       }
     }
   }, [search]);
+  console.log(filials)
   return (
     <View style={{height: dimisions.height - verticalScale(85)}}>
       <MapView
