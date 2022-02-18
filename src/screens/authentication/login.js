@@ -27,15 +27,17 @@ export const Login = ({navigation}) => {
 
   useEffect(() => {
     return () => {
-      dispatch(setAuthStatus(null));
       dispatch(setAuthError(null));
     };
-  },[])
+  }, []);
 
   useEffect(() => {
     if (status === 'success') {
       navigation.navigate('Code', {phone: FormatPhone(phone)});
     }
+    return () => {
+      dispatch(setAuthStatus(null));
+    };
   }, [status]);
   const loginHandler = async () => {
     if (!CheckIsValidPhone(phone)) {

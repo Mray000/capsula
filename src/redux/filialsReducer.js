@@ -57,7 +57,6 @@ export const showFilialDataTC = filial => async dispatch => {
     const datetime = await filialsAPI.getFirstBookableDateTime(filial.id, date);
     const stylists_length = await filialsAPI.getFreeStylistsLength(
       filial.id,
-      datetime,
     );
     return {datetime, stylists_length};
   } catch (e) {

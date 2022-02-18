@@ -19,10 +19,13 @@ import {logout} from '../../redux/authReducer';
 import {InputWithLabel} from 'utils/InputWithLabel';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
+import { Appearance } from 'react-native';
 
 export const Settings = ({navigation}) => {
   const dispatch = useDispatch();
   const profile = useSelector(state => state?.profile.profile);
+
+  const colorScheme = Appearance.getColorScheme();
 
   const [name, setName] = useState(profile.name ?? '');
   const [birthday, setBirthday] = useState(profile.birth_date ?? '');
@@ -172,7 +175,7 @@ export const Settings = ({navigation}) => {
         confirmText={"Сохранить"}
         cancelText={"Отмена"}
         open={is_birthday_picker_open}
-        textColor={"#ffffff"}
+        textColor={colorScheme === 'dark' ? "#ffffff" : "#000000"}
         date={moment().toDate()}
         maximumDate={moment().toDate()}
         onConfirm={date => {

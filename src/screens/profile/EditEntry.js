@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Regular',
     fontSize: moderateScale(16),
     color: '#808080',
-    lineHeight: 20,
     marginBottom: 12,
   },
   success_edit_entry_date: {
@@ -204,7 +203,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-SemiBold',
     fontSize: moderateScale(18),
     color: 'black',
-    lineHeight: 18,
     marginBottom: 8,
   },
 });

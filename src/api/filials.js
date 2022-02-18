@@ -23,8 +23,15 @@ export const filialsAPI = {
       });
   },
   getFreeStylistsLength (company_id, datetime) {
+    const getRequstStringString = () => {
+      let start = `book_staff/${company_id}?`;
+      if (datetime?.date) {
+        start += `datetime=${datetime.date}T${datetime.time}&`;
+      }
+      return start;
+    };
     return instance
-      .get(`book_staff/${company_id}?datetime=${datetime}`.replace('+', '%2B'))
+      .get(getRequstStringString().replace('+', '%2B'))
       .then(data => data?.data.filter(el => el.bookable).length);
   },
 };

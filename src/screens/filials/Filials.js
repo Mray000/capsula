@@ -46,7 +46,7 @@ export const Filials = ({navigation, route}) => {
     if (!initialFilials.length) {
       dispatch(getAllFilialsTC());
     }
-  }, [services.length]);
+  }, [is_global, services.length]);
 
   const ShowFilialData = async filial => {
     if (moment(filial.datetime).isAfter(moment())) {
@@ -68,8 +68,9 @@ export const Filials = ({navigation, route}) => {
       bottomSheet.current.show();
     }
   };
-  const filials = is_global ? initialFilials : allFilials
-  if (!filials.length || loading) return <Loader />;
+
+  const filials = is_global ? initialFilials : services.length ? allFilials : initialFilials
+  if (!filials?.length || loading) return <Loader />;
   return (
     <>
       <KeyboardAwareScrollView

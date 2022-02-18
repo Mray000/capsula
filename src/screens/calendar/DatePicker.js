@@ -67,6 +67,7 @@ export const DatePicker = ({dates, SetSelectedDate}) => {
   if (!dates) return null;
   return (
     <Calendar
+      firstDay={1}
       onDayPress={day =>
         dates.includes(day.dateString) ? SetSelectedDate(day.dateString) : null
       }
