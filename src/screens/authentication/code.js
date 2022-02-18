@@ -31,6 +31,13 @@ export const Code = ({navigation, route}) => {
   const loading = useSelector(state => state?.common.loading);
   const {error, status} = useSelector(state => state?.auth);
 
+  useEffect(() => {
+    return () => {
+      dispatch(setAuthStatus(null));
+      dispatch(setAuthError(null));
+    };
+  },[])
+
   const phone = route?.params?.phone;
   const first_ref = useRef();
   const second_ref = useRef();

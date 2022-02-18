@@ -42,7 +42,7 @@ export const getStylistsTC = (company, service_ids, datetime) => async dispatch 
     const res = await stylistsAPI.getStylists(company, service_ids, datetime);
     dispatch(setAllStylists(res));
   } catch (e) {
-    console.log(e.response.data);
+    console.log(e?.response?.data);
   }
   dispatch(setLoading(false));
 };
@@ -56,7 +56,7 @@ export const getAllStylistsTC = () => async dispatch => {
     );
      dispatch(setAllStylists(stylists.reduce((a, b) => a.concat(b), [])));
   } catch (e) {
-    console.log(e.response.data);
+    console.log(e?.response?.data);
   }
   dispatch(setLoading(false));
 };
@@ -77,7 +77,7 @@ export const getStylistBookableSeancesTC = (filial_id, stylist_id, service_id) =
     }
     dispatch(setSeances(seances));
   } catch (e) {
-    console.log(e.response.data);
+    console.log(e?.response?.data);
   }
   dispatch(setLoading(false));
 };
@@ -88,7 +88,7 @@ export const getCommentsTC = (company_id, stylist_id) => async dispatch => {
     const res = await stylistsAPI.getComments(company_id, stylist_id);
     dispatch(setComments(res.data));
   } catch (e) {
-    console.log(e.response.data);
+    console.log(e?.response?.data);
   }
   dispatch(setLoading(false));
 };

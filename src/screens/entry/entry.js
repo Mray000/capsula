@@ -11,10 +11,10 @@ import {SplashVideo} from 'utils/SplashVideo';
 import {BottomNavigator} from 'utils/BottomNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  clearAllCreateEntryFields,
   clearServices,
   getSalesTC,
   setDateAndTime,
-  setFilial,
   setStylist,
 } from '../../redux/entryReducer';
 
@@ -30,6 +30,9 @@ export const Entry = ({navigation}) => {
     setTimeout(() => {
       SetIsLoad(true);
     }, 6000);
+    return () => {
+      dispatch(clearAllCreateEntryFields())
+    }
   }, []);
 
   const createEntry = () => {
@@ -43,7 +46,7 @@ export const Entry = ({navigation}) => {
       title: 'Выберите филиал',
       header_title: 'филиал',
       navigate: 'Filials',
-      onClear: () => dispatch(setFilial(null)),
+      onClear: () => dispatch(clearAllCreateEntryFields()),
     },
     {
       value: services.map(el => el?.title).join(', '),
@@ -224,69 +227,3 @@ const FormElement = ({
     );
   }
 };
-
-// const BonusInput = ({value, is_active, onClear, balance}) => {
-//   const dispatch = useDispatch();
-//   return (
-//     <TouchableOpacity
-//       style={{
-//         backgroundColor: is_active && !value ? '#EFEFEF' : '#FCFCFC',
-//         borderWidth: is_active ? 0 : 1,
-//         borderColor: '#E8E8E8',
-//         justifyContent: 'space-between',
-//         alignItems: 'center',
-//         flexDirection: 'row',
-//         marginTop: 10,
-//         borderRadius: 15,
-//         paddingHorizontal: 20,
-//         height: dimisions.height / 12,
-//       }}
-//       disabled={!is_active}>
-//       <View style={{justifyContent: 'space-around'}}>
-//         {value ? (
-//           <Text
-//             style={{
-//               color: '#BFBFBF',
-//               marginTop: 10,
-//               fontFamily: 'Inter-Regular',
-//               fontSize: moderateScale(12),
-//             }}>
-//             {'бонсусные баллы'}
-//           </Text>
-//         ) : null}
-//         <TextInput
-//           editable={is_active}
-//           selectionColor={'black'}
-//           style={{
-//             width: '110%',
-//             color: 'black',
-//             fontFamily: 'Inter-Medium',
-//             fontSize: moderateScale(value ? 14 : 16),
-//           }}
-//           onChangeText={text => {
-//             if (Number(text) <= balance) {
-//               dispatch(setBonus(text));
-//             }
-//           }}
-//           placeholderTextColor={is_active ? 'black' : '#B0B0B0'}
-//           value={value}
-//           keyboardType="numeric"
-//           placeholder="Укажите бонусные баллы"
-//         />
-//       </View>
-//       {value ? (
-//         <TouchableOpacity
-//           onPress={onClear}
-//           style={{
-//             width: '10%',
-//             alignItems: 'center',
-//             justifyContent: 'center',
-//           }}>
-//           <Cross fill="black" />
-//         </TouchableOpacity>
-//       ) : (
-//         <ArrowRight fill={is_active ? 'black' : '#D6D6D6'} />
-//       )}
-//     </TouchableOpacity>
-//   );
-// };

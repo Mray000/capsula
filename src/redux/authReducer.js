@@ -75,9 +75,7 @@ export const login = (phone, code) => async dispatch => {
 
     //REAL
     const res = await authAPI.login(phone, code);
-    console.log(res.data)
     const user = await authAPI.findUserByPhone(phone);
-    console.log(user.data)
     const user_id = user?.data?.data[0]?.id?.toString();
     dispatch(setUserData(user_id, res.data.phone, res.data.user_token));
     AsyncStorage.setItem('token', res.data.user_token);
@@ -96,9 +94,8 @@ export const getCode = phone => async dispatch => {
   dispatch(setLoading(true));
   try {
     //REAL
-    const res = await authAPI.getCode(phone);
+    await authAPI.getCode(phone);
     dispatch(setAuthStatus('success'));
-    console.log(res.data)
     //FAKE
     // new Promise((resolve, reject) => {
     //   dispatch(setLoading(true));

@@ -28,7 +28,7 @@ export const InputWithLabel = ({
         flexDirection: 'row',
         marginBottom: 10,
         borderRadius: 15,
-        paddingTop: focus ? 0 : dimisions.height / 100,
+        paddingVertical: multiline ? dimisions.height / 100 : dimisions.height / 60  ,
         paddingHorizontal: 20,
         height: multiline ? dimisions.height / 6 : dimisions.height / 10,
       }}>
@@ -37,7 +37,7 @@ export const InputWithLabel = ({
           <Text
             style={{
               color: '#BFBFBF',
-              marginTop: 10,
+              marginTop: 0,
               fontFamily: 'Inter-Regular',
               fontSize: moderateScale(14),
             }}>
@@ -50,18 +50,17 @@ export const InputWithLabel = ({
           editable={disabled}
           selectionColor={'black'}
           style={{
-            width: '110%',
+            width: '100%',
             color: 'black',
             fontFamily: 'Inter-Medium',
             fontSize: moderateScale(16),
-            lineHeight: 20,
             alignItems: 'flex-end',
           }}
           onChangeText={onChange}
           placeholderTextColor={'#D9D9D9'}
           value={value}
           underlineColorAndroid="transparent"
-          placeholder={placeholder}
+          placeholder={focus ? "" : placeholder}
           multiline={multiline}
           {...props}
         />

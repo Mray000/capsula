@@ -26,6 +26,12 @@ export const Login = ({navigation}) => {
   const [phone, setPhone] = useState('');
 
   useEffect(() => {
+    return () => {
+      dispatch(setAuthError(null));
+    };
+  }, []);
+
+  useEffect(() => {
     if (status === 'success') {
       navigation.navigate('Code', {phone: FormatPhone(phone)});
     }

@@ -16,15 +16,16 @@ import {ConfirmModal} from 'utils/ConfirmModal';
 import {useDispatch, useSelector} from 'react-redux';
 import {editProfileInfoTC} from '../../redux/profileReducer';
 import {logout} from '../../redux/authReducer';
-import {TextInputMask} from 'react-native-masked-text';
 import {InputWithLabel} from 'utils/InputWithLabel';
-import {BirthDayPicker} from './BirthDayPicker';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
+import { Appearance } from 'react-native';
 
 export const Settings = ({navigation}) => {
   const dispatch = useDispatch();
   const profile = useSelector(state => state?.profile.profile);
+
+  const colorScheme = Appearance.getColorScheme();
 
   const [name, setName] = useState(profile.name ?? '');
   const [birthday, setBirthday] = useState(profile.birth_date ?? '');
@@ -142,22 +143,6 @@ export const Settings = ({navigation}) => {
                     }}>
                     {birthday}
                   </Text>
-                  {/* <TextInputMask
-                    style={{
-                      width: '100%',
-
-                      alignItems: 'flex-end',
-                    }}
-                    type={'datetime'}
-                    options={{
-                      format: 'YYYY-MM-DD',
-                    }}
-                    value={birthday}
-                    onChangeText={text => setBirthday(text)}
-                    placeholderTextColor={'#D9D9D9'}
-                    underlineColorAndroid="transparent"
-                    placeholder={'необязателно'}
-                  /> */}
                 </TouchableOpacity>
               </TouchableOpacity>
             </Shadow>
@@ -186,11 +171,14 @@ export const Settings = ({navigation}) => {
       <DatePicker
         modal
         mode="date"
+        title={"Дата рождения"}
+        confirmText={"Сохранить"}
+        cancelText={"Отмена"}
         open={is_birthday_picker_open}
+        textColor={colorScheme === 'dark' ? "#ffffff" : "#000000"}
         date={moment().toDate()}
         maximumDate={moment().toDate()}
         onConfirm={date => {
-          console.log(date);
           setBirthday(moment(date).format("YYYY-MM-DD"))
           SetIsBirthdayPickerOpen(false);
         }}

@@ -20,6 +20,7 @@ export const StylistsList = ({navigation, route}) => {
 
   const [filter, SetFilter] = useState('');
   const is_global = route.params.is_global;
+  const loading = useSelector(state => state?.common.loading);
   const {filial, services, date_and_time} = useSelector(state => state?.entry);
   const stylists = useSelector(state => state?.stylists.allStylists);
 
@@ -40,7 +41,7 @@ export const StylistsList = ({navigation, route}) => {
     };
   }, [is_global]);
 
-  if (!stylists.length) return <Loader />;
+  if (!stylists?.length || loading) return <Loader />;
   return (
     <>
       <View
@@ -129,7 +130,7 @@ export const StylistsList = ({navigation, route}) => {
         ) : null}
         <FlatList
           keyExtractor={item => item.id}
-          style={{backgroundColor: '#FCFCFC', paddingBottom: verticalScale(65)}}
+          style={{backgroundColor: '#FCFCFC', marginBottom: verticalScale(is_global ? 100 : 150) }}
           data={stylists
             .filter(stylist => stylist.name !== 'Позвони мне')
             .sort((a, b) => Number(b.weight) - Number(a.weight))

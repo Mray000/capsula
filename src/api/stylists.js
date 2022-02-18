@@ -6,17 +6,19 @@ export const stylistsAPI = {
       let start = `book_staff/${company.id}?`;
       if (service_ids?.length) {
         start += `service_ids=${service_ids.join(',')}`;
-        if (datetime) start += `datetime=${datetime.date}T${datetime.time}`;
-      } else if (datetime)
+        if (datetime?.date) start += `&datetime=${datetime.date}T${datetime.time}`;
+      } else if (datetime?.date)
         start += `datetime=${datetime.date}T${datetime.time}`;
       return start;
     };
-
-    return instance
-      .get(getRequstStringString())
-      .then(data =>
-        data.data.filter(el => el.bookable).map(i => ({...i, company})),
-      );
+    return instance.get(getRequstStringString()).then(data =>
+      data.data
+        .filter(el => el.bookable)
+        .map(i => ({
+          ...i,
+          company,
+        })),
+    );
   },
   getStylistData(company_id, stylist_id, service_ids) {
     return instance.get(

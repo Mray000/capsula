@@ -28,10 +28,10 @@ import {getAllFilialsTC} from '../../redux/filialsReducer';
 
 export const Info = ({navigation}) => {
   const dispatch = useDispatch();
-  const filials = useSelector(state => state.filials.allFilials);
+  const filials = useSelector(state => state?.filials.initialFilials);
   const [checked, setChecked] = useState(null);
   useEffect(() => {
-    dispatch(getAllFilialsTC());
+    if (!filials.length) dispatch(getAllFilialsTC());
   }, []);
 
   const social_media_links = [
@@ -75,11 +75,13 @@ export const Info = ({navigation}) => {
     {icon: Star, title: 'American Crew ALL-STAR Challenge'},
     {icon: Star, title: 'LondaStyle MAXIMUM'},
     {icon: Star, title: 'Звезда Estel и Estel Video Awards'},
-
   ];
   const winners = [
     {icon: Star, title: 'NEVA FASHION AWARDS 2021'},
-    {icon: Star, title: 'TimeOut Beauty Awards 2020 в номинации - «Лучшие стрижки»'},
+    {
+      icon: Star,
+      title: 'TimeOut Beauty Awards 2020 в номинации - «Лучшие стрижки»',
+    },
     {
       icon: Star,
       title:
@@ -190,7 +192,7 @@ export const Info = ({navigation}) => {
           </View>
           <View style={styles.about_container}>
             <Text style={styles.about_subtitle}>Мы делаем:</Text>
-            {our_work.map((i,index) => (
+            {our_work.map((i, index) => (
               <View key={index} style={styles.about_list}>
                 <View style={{alignItems: 'center'}}>
                   <i.icon width={7} height={7} fill="black" />
@@ -209,7 +211,7 @@ export const Info = ({navigation}) => {
             <Text style={styles.about_subtitle}>
               Наши стилисты — международные чемпионы популярных конкурсов:
             </Text>
-            {champions.map((i,index)=> (
+            {champions.map((i, index) => (
               <View key={index} style={styles.about_list}>
                 <i.icon width={18} height={18} fill="black" />
                 <Text style={styles.about_list_title}>{i.title}</Text>
@@ -218,12 +220,13 @@ export const Info = ({navigation}) => {
           </View>
           <View style={styles.about_container}>
             <Text style={styles.about_subtitle}>
-              Чемпионы Книги рекордов России и Рекорда Гиннесса по массовому окрашиванию 2018
+              Чемпионы Книги рекордов России и Рекорда Гиннесса по массовому
+              окрашиванию 2018
             </Text>
           </View>
           <View style={styles.about_container}>
             <Text style={styles.about_subtitle}>Победители:</Text>
-            {winners.map((i,index) => (
+            {winners.map((i, index) => (
               <View key={index} style={styles.about_list_winners}>
                 <i.icon width={18} height={18} fill="black" />
                 <Text style={styles.about_list_title}>{i.title}</Text>
@@ -232,7 +235,7 @@ export const Info = ({navigation}) => {
           </View>
           <View style={styles.about_container}>
             <Text style={styles.about_subtitle}>Мы сотрудничаем с:</Text>
-            {cooperate_with.map((i,index) => (
+            {cooperate_with.map((i, index) => (
               <View key={index} style={styles.about_list}>
                 <i.icon width={7} height={7} fill="black" />
                 <Text style={styles.about_list_title}>{i.title}</Text>

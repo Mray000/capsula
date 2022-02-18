@@ -26,25 +26,17 @@ export const entryAPI = {
   getSalesById(id) {
     return instance.get(`services/${COMPANY_ID}/${id}`);
   },
-  applyWithdrawalLoyalityCard(company_id, card_id, data) {
-    return instance.post(
-      `visit/loyalty/apply_card_withdrawal/${company_id}/${card_id}`,
-      data,{
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${COMPANY_TOKEN},  User ecec81087e48daa654e8d1f8f8c90913`,
-        },
-      }
-    );
-  },
-  getServicesCategorys(company_id, stylist_id, datetime) {
+  getServicesCategorys(company_id, stylist_id, datetime, services) {
     const getRequstStringString = () => {
       let start = `book_services/${company_id}?`;
       if (stylist_id) {
-        start += `staff_id=${stylist_id}`;
-        if (datetime) start += `&datetime=${datetime.date}T${datetime.time}`;
-      } else if (datetime)
-        start += `datetime=${datetime.date}T${datetime.time}`;
+        start += `staff_id=${stylist_id}&`;
+      }
+      if (datetime?.date) {
+        start += `datetime=${datetime.date}T${datetime.time}&`;
+      }
+      if (services.length)
+        start += `service_ids=${services.map(el => el?.id)}`;
       return start;
     };
     return instance.get(getRequstStringString());

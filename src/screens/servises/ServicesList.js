@@ -26,11 +26,21 @@ export const ServicesList = ({navigation}) => {
   );
 
   useEffect(() => {
-    dispatch(getAllServicesTC(filial.id, stylist?.id, date_and_time));
+    dispatch(getAllServicesTC(filial?.id, stylist?.id, date_and_time, services));
     return () => {
       dispatch(setAllCategories([]))
     }
-  }, []);
+  }, [services]);
+  const addServiceHandler = async (service) => {
+    navigation.goBack()
+    dispatch(setServices(service))
+  }
+   const addServiceToListHandler = async (service) => {
+    dispatch(setServices(service))
+  }
+
+
+
   if (!allCategories.length) return <Loader />;
   return (
     <>
@@ -179,6 +189,8 @@ export const ServicesList = ({navigation}) => {
           )
           .map(category => (
             <Category
+              addServiceHandler={addServiceHandler}
+              addServiceToListHandler={addServiceToListHandler}
               key={category.id}
               title={category.title}
               staffs={category.staffs}

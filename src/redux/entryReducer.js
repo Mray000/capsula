@@ -13,7 +13,6 @@ const initialState = {
   services: [],
   stylist: null,
   date_and_time: null,
-  bonus: 0,
   sales: [],
   currentSaleInfo: {},
   allCategories: [],
@@ -25,9 +24,7 @@ export const entryReducer = (state = initialState, action) => {
     case 'SET_ENTRY_STATUS':
     case 'SET_NEW_DATE_ENTRY':
     case 'SET_ENTRY_ERROR':
-    case 'SET_FILIAL':
     case 'SET_STYLIST':
-    case 'SET_BONUS':
     case 'SET_SALES':
     case 'SET_ALL_CATEGORIES':
     case 'CLEAR_SERVICES':
@@ -36,7 +33,21 @@ export const entryReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
-
+    case 'SET_FILIAL':
+      const newState = state.filial
+        ? {
+            filial: action.payload.filial,
+            services: [],
+            stylist: null,
+            date_and_time: undefined,
+          }
+        : {
+            filial: action.payload.filial,
+          };
+      return {
+        ...state,
+        ...newState,
+      };
     case 'SET_DATE_AND_TIME':
       return {
         ...state,
@@ -59,7 +70,6 @@ export const entryReducer = (state = initialState, action) => {
         services: [],
         stylist: null,
         date_and_time: null,
-        bonus: 0,
       };
     default:
       return state;
@@ -109,10 +119,6 @@ export const setDateAndTime = (date, time) => ({
   type: 'SET_DATE_AND_TIME',
   payload: {date, time},
 });
-export const setBonus = bonus => ({
-  type: 'SET_BONUS',
-  payload: {bonus},
-});
 export const clearAllCreateEntryFields = () => ({
   type: 'CLEAR_ALL_CREATE_ENTRY_FIELDS',
 });
@@ -141,7 +147,7 @@ export const createEntryTC =
             : e.response.data.errors.message,
         ),
       );
-      console.log(e.response.data);
+      console.log(e?.response?.data);
     }
     dispatch(setLoading(false));
   };
@@ -153,7 +159,7 @@ export const getEntryTC = (company_id, entryId) => async dispatch => {
     const filial = await entryAPI.getFilialInfo(entry.data.company_id);
     dispatch(setEntryDetails(entry.data, filial.data));
   } catch (e) {
-    console.log(e.response.data);
+    console.log(e?.response?.data);
   }
   dispatch(setLoading(false));
 };
@@ -189,7 +195,7 @@ export const getSalesTC = () => async dispatch => {
     }
     dispatch(setSales(distinct));
   } catch (e) {
-    console.log('sales', e.response.data);
+    console.log('sales', e?.response?.data);
   }
   dispatch(setLoading(false));
 };
@@ -200,19 +206,20 @@ export const getSalesByIdTC = id => async dispatch => {
     const res = await entryAPI.getSalesById(id);
     dispatch(setCurrentSaleInfo(res.data));
   } catch (e) {
-    console.log(e.response.data);
+    console.log(e?.response?.data);
   }
   dispatch(setLoading(false));
 };
 
 export const getAllServicesTC =
-  (company_id, stylist_id, datetime) => async dispatch => {
+  (company_id, stylist_id, datetime, services) => async dispatch => {
     dispatch(setLoading(true));
     try {
       const res = await entryAPI.getServicesCategorys(
         company_id,
         stylist_id,
         datetime,
+        services
       );
 
       let categories = res.data.category.map(category => {
@@ -223,7 +230,8 @@ export const getAllServicesTC =
       });
       dispatch(setAllCategories(categories));
     } catch (e) {
-      console.log(e.response.data);
+      console.log(e?.response?.data);
     }
     dispatch(setLoading(false));
   };
+
