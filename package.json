@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "reload_servers": "taskkill /F /IM node.exe",
+    "reload_servers": "killall node",
     "build_adnroid": "cd android && gradlew assembleRelease",
     "realese_adnroid": "cd android && gradlew bundleRelease",
     "test": "jest",

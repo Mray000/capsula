@@ -13,7 +13,8 @@ export const InputWithLabel = ({
   disabled = true,
   ...props
 }) => {
-  const [focus, setFocus] = useState(false)
+  // multiline = false
+  const [focus, setFocus] = useState(false);
   return (
     <TouchableOpacity
       onPress={() => setFocus(true)}
@@ -21,23 +22,22 @@ export const InputWithLabel = ({
         backgroundColor: '#FCFCFC',
         borderWidth: border ? 1 : 0,
         borderColor: '#E8E8E8',
-
-        flexWrap: 'wrap',
+        flexWrap: multiline ? 'wrap' : null,
         justifyContent: multiline ? 'flex-start' : 'space-between',
         alignItems: multiline ? 'flex-start' : 'center',
+        alignItems: 'center',
         flexDirection: 'row',
         marginBottom: 10,
         borderRadius: 15,
-        paddingVertical: multiline ? dimisions.height / 100 : dimisions.height / 60  ,
+        // paddingTop: (!value || multiline) ? 10 : 0,
         paddingHorizontal: 20,
         height: multiline ? dimisions.height / 6 : dimisions.height / 10,
       }}>
       <View style={{width: '90%', justifyContent: 'space-around'}}>
-        {( value || focus) ? (
+        {value || focus ? (
           <Text
             style={{
               color: '#BFBFBF',
-              marginBottom: 8,
               fontFamily: 'Inter-Regular',
               fontSize: moderateScale(14),
             }}>
@@ -55,12 +55,13 @@ export const InputWithLabel = ({
             fontFamily: 'Inter-Medium',
             fontSize: moderateScale(16),
             alignItems: 'flex-end',
+            padding: 0,
           }}
           onChangeText={onChange}
           placeholderTextColor={'#D9D9D9'}
           value={value}
           underlineColorAndroid="transparent"
-          placeholder={focus ? "" : placeholder}
+          placeholder={focus ? '' : placeholder}
           multiline={multiline}
           {...props}
         />
