@@ -20,16 +20,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setFilial} from '../../redux/entryReducer';
 import {
   getAllFilialsTC,
+  getFilialsWithFilter,
   setAllFilials,
   showFilialDataTC,
 } from '../../redux/filialsReducer';
 
 moment.locale('ru');
-export const Filials = ({navigation}) => {
+export const Filials = ({navigation, route}) => {
   const dispatch = useDispatch();
 
-  const filials = useSelector(state => state.filials.allFilials);
-
+  const is_global = route?.params.is_global;
+  const {allFilials,initialFilials } = useSelector(state => state?.filials);
+  const services = useSelector(state => state?.entry.services);
+  const loading = useSelector(state => state?.common.loading);
   const [selected_filial, SetSelectedFilial] = useState(null);
   const [is_map_active, SetIsMapActive] = useState(true);
   const [filter, SetFilter] = useState('');
@@ -37,8 +40,13 @@ export const Filials = ({navigation}) => {
   const bottomSheet = useRef(null);
 
   useEffect(() => {
-    dispatch(getAllFilialsTC());
-  }, []);
+    if (!is_global && services.length) {
+      dispatch(getFilialsWithFilter(services[0].id));
+    }
+    if (!initialFilials.length) {
+      dispatch(getAllFilialsTC());
+    }
+  }, [services.length]);
 
   const ShowFilialData = async filial => {
     if (moment(filial.datetime).isAfter(moment())) {
@@ -60,8 +68,8 @@ export const Filials = ({navigation}) => {
       bottomSheet.current.show();
     }
   };
-
-  if (!filials.length) return <Loader />;
+  const filials = is_global ? initialFilials : allFilials
+  if (!filials.length || loading) return <Loader />;
   return (
     <>
       <KeyboardAwareScrollView
@@ -350,7 +358,10 @@ export const Filials = ({navigation}) => {
         </BottomSheet>
       ) : null}
 
-      <BottomNavigator  navigation={navigation} active="filials" />
+      <BottomNavigator
+        navigation={navigation}
+        active={is_global ? 'filials' : 'entry'}
+      />
     </>
   );
 };

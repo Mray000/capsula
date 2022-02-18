@@ -36,9 +36,9 @@ export const Profile = ({navigation}) => {
     };
   }, [id, isFocused]);
 
-  if (!isAuth) {
-    navigation.navigate('Login');
-  }
+  // if (!isAuth) {
+  //   navigation.navigate('Login');
+  // }
   if (loading || !isFocused) return <Loader />;
   return (
     <>

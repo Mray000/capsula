@@ -9,17 +9,14 @@ import {SuccessModal} from 'utils/SuccessModal';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import {formatDateAndTimeToISO} from 'utils/dateUtils';
-import {
-  setEntryStatus,
-  setNewDateEntry,
-} from '../../redux/entryReducer';
+import {setEntryStatus, setNewDateEntry} from '../../redux/entryReducer';
 import {Loader} from 'utils/Loader';
-import {editEntryTC} from "../../redux/profileReducer";
+import {editEntryTC} from '../../redux/profileReducer';
 
 export const EditEntry = ({navigation}) => {
   const dispatch = useDispatch();
   const {entry, filialDetails, newDateEntry, entryStatus} = useSelector(
-    state => state.entry,
+    state => state?.entry,
   );
   const [successEditEntry, setSuccessEditEntry] = useState(false);
 
@@ -38,16 +35,16 @@ export const EditEntry = ({navigation}) => {
     setSuccessEditEntry(false);
     dispatch(setNewDateEntry(null));
     dispatch(setEntryStatus(null));
-    navigation.navigate("EntryDetails", {
+    navigation.navigate('EntryDetails', {
       entryId: entry?.id,
-      company_id: filialDetails?.id
-    })
+      company_id: filialDetails?.id,
+    });
   };
 
   const editEntry = () => {
     if (newDateEntry) {
       dispatch(
-        editEntryTC(filialDetails.id,{
+        editEntryTC(filialDetails.id, {
           ...entry,
           datetime: formatDateAndTimeToISO(
             newDateEntry?.date,
@@ -58,7 +55,7 @@ export const EditEntry = ({navigation}) => {
     }
   };
 
-  if (!entry.services) return <Loader />;
+  if (!entry?.services) return <Loader />;
 
   return (
     <View style={styles.container}>
@@ -82,7 +79,7 @@ export const EditEntry = ({navigation}) => {
               to: 'EditEntry',
               filial_id: filialDetails.id,
               stylist_id: entry.staff.id,
-              service_id: entry.services[0].id,
+              service_id: entry.services.map(i => i.id),
             })
           }>
           <Text
@@ -104,12 +101,12 @@ export const EditEntry = ({navigation}) => {
           headerTitle={'филиал'}
         />
         <DisabledTextField
-          value={entry.services[0].title}
+          value={entry?.services?.map(i => i.title)}
           headerTitle={'услуга'}
         />
         <DisabledTextField
-          value={entry.staff.name}
-          headerTitle={entry.staff.specialization}
+          value={entry?.staff?.name}
+          headerTitle={entry?.staff?.specialization}
         />
       </View>
       <Button

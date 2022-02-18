@@ -33,6 +33,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
   } = stylist;
   const [is_load, SetIsLoad] = useState(true);
   useEffect(() => {
+    if(is_load)
       stylistsAPI
         .getStylistData(
           stylist?.company?.id,
@@ -44,7 +45,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
           stylist.times = data.data.seances;
           SetIsLoad(false);
         });
-  }, []);
+  }, [is_load]);
 
   return (
     <View
@@ -59,7 +60,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
         paddingHorizontal: 10,
 
         elevation: 10,
-        marginTop: verticalScale(10),
+        marginBottom: verticalScale(10),
         borderRadius: 20,
       }}>
       <View

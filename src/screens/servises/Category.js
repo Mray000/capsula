@@ -5,17 +5,17 @@ import ArrowDown from 'assets/arrow_down.svg';
 import {dimisions} from 'utils/demisions';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {moderateScale, scale} from 'utils/Normalize';
-import {useDispatch, useSelector} from "react-redux";
-import {setServices} from "../../redux/entryReducer";
+import {useSelector} from 'react-redux';
 
-export const Category =({title, staffs}) => {
-  const dispatch = useDispatch()
+export const Category = ({
+  title,
+  staffs,
+  addServiceToListHandler,
+  addServiceHandler,
+}) => {
   const [is_open, SetIsOpen] = useState(false);
   const {services} = useSelector(state => state.entry);
 
-  const addService = (service) => {
-    dispatch(setServices(service))
-  }
   return (
     <View style={{backgroundColor: 'transparent'}}>
       <TouchableOpacity
@@ -62,7 +62,8 @@ export const Category =({title, staffs}) => {
               price_min={item.price_min}
               price_max={item.price_max}
               is_active={services.find(el => el.id === item.id)}
-              SetIsActive={addService}
+              addServiceHandler={addServiceHandler}
+              addServiceToListHandler={addServiceToListHandler}
             />
           ))}
         </View>

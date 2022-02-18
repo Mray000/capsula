@@ -27,6 +27,7 @@ import {EntryCode} from './src/screens/entry/entryCode';
 import {CurrentSale} from './src/screens/entry/currentSale';
 import {NoInternetModal} from 'utils/NoInternetModal';
 import {useNetInfo} from '@react-native-community/netinfo';
+import {getAllFilialsTC} from "./src/redux/filialsReducer";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
   useEffect(() => {
     SplashScreen.hide();
     dispatch(authMe());
+    dispatch(getAllFilialsTC());
   }, []);
 
   return (

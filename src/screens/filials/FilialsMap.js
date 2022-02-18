@@ -29,7 +29,7 @@ export const FilialsMap = ({filials, selected_filial, ShowFilialData}) => {
       }
     }
   }, [search]);
-  console.log(filials)
+
   return (
     <View style={{height: dimisions.height - verticalScale(85)}}>
       <MapView
@@ -38,7 +38,7 @@ export const FilialsMap = ({filials, selected_filial, ShowFilialData}) => {
           width: '100%',
           height: '100%',
         }}>
-        {filials.map((marker, index) => (
+        {filials?.map((marker, index) => (
           <Marker
             key={index}
             coordinate={{

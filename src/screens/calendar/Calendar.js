@@ -7,7 +7,7 @@ import {verticalScale} from 'utils/Normalize';
 import {DatePicker} from './DatePicker';
 import {TimePicker} from './TimePicker';
 import {useDispatch, useSelector} from 'react-redux';
-import {getStylistBookableSeancesTC} from "../../redux/stylistReducer";
+import {getStylistBookableSeancesTC, setSeances} from "../../redux/stylistReducer";
 
 export const Calendar = ({navigation, route}) => {
 
@@ -15,24 +15,26 @@ export const Calendar = ({navigation, route}) => {
 
   const {filial_id, stylist_id, service_id, to} = route.params
   const [selected_date, SetSelectedDate] = useState(null);
-
+  const loading = useSelector(state => state?.common.loading);
   const {filial, services, stylist} = useSelector(
     state => state.entry,
   );
   const seances = useSelector(
     state => state.stylists.seances,
   );
-  console.log(filial?.id)
   useEffect(() => {
     dispatch(getStylistBookableSeancesTC(
       filial_id ?? filial.id,
       stylist_id ?? stylist?.id,
       service_id ?? services.map(el => el.id),
     ))
+    return () => {
+      dispatch(setSeances([]))
+    }
   }, []);
 
 
-  if (!seances.length) return <Loader />;
+  if (!seances.length || loading) return <Loader />;
   return (
     <>
       <ScrollView style={{marginBottom: verticalScale(60)}}>

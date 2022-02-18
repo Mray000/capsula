@@ -84,10 +84,13 @@ export const EntryDetails = ({navigation, route}) => {
           />
           <View style={styles.entry_details}>
             <Text style={styles.entry_service}>
-              {entry.services?.[0]?.title}
+              {entry?.services?.map(i => i.title)}
             </Text>
             <Text style={styles.entry_price}>
-              {entry.services?.[0]?.cost} ₽
+              {entry?.services?.reduce(function (sum, elem) {
+                return sum + elem.cost;
+              }, 0)}{' '}
+              ₽
             </Text>
           </View>
 
