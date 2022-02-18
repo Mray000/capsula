@@ -572,7 +572,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-SemiBold',
     color: '#000000',
     fontSize: moderateScale(18),
-    lineHeight: 18,
   },
   sub_title: {
     fontFamily: 'Inter-Regular',

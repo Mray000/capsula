@@ -53,6 +53,9 @@ export const Code = ({navigation, route}) => {
       if (id === 4) fourth_ref.current?.focus();
       if (id === 5) onSubmitHandler(string);
     } else {
+      if (id === 5 && string === '') third_ref.current?.focus();
+      if (id === 4 && !string) second_ref.current?.focus();
+      if (id === 3 && !string) first_ref.current?.focus();
       setValue('');
       dispatch(setAuthError(''));
     }

@@ -83,17 +83,15 @@ export const Settings = ({navigation}) => {
                   height: dimisions.height / 10,
                 }}>
                 <View style={{width: '90%', justifyContent: 'space-around'}}>
-                  {name ? (
                     <Text
                       style={{
                         color: '#BFBFBF',
-                        marginTop: 10,
+                        marginTop: 12,
                         fontFamily: 'Inter-Regular',
                         fontSize: moderateScale(14),
                       }}>
                       {'имя'}
                     </Text>
-                  ) : null}
                   <TextInput
                     style={{
                       width: '100%',
@@ -135,14 +133,28 @@ export const Settings = ({navigation}) => {
                     }}>
                     дата рождения
                   </Text>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontFamily: 'Inter-Medium',
-                      fontSize: moderateScale(16),
-                    }}>
-                    {birthday}
-                  </Text>
+                  {
+                    birthday ?
+                      <Text
+                        style={{
+                          color: 'black',
+                          marginTop: 8,
+                          fontFamily: 'Inter-Medium',
+                          fontSize: moderateScale(16),
+                        }}>
+                        {birthday}
+                      </Text>
+                      : <Text
+                        style={{
+                          color: '#BFBFBF',
+                          marginTop: 8,
+                          fontFamily: 'Inter-Medium',
+                          fontSize: moderateScale(16),
+                        }}>
+                        {'необязательно'}
+                      </Text>
+                  }
+
                 </TouchableOpacity>
               </TouchableOpacity>
             </Shadow>
