@@ -61,6 +61,7 @@ const App = () => {
           <Stack.Group>
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Code" component={Code} />
+            <Stack.Screen name="PreLogin" component={PreLogin} />
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen name="Entry" component={Entry} />
@@ -80,7 +81,6 @@ const App = () => {
 
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Settings" component={Settings} />
-            <Stack.Screen name="PreLogin" component={PreLogin} />
             <Stack.Screen name="Scores" component={Scores} />
             <Stack.Screen name="EntryDetails" component={EntryDetails} />
             <Stack.Screen name="EditEntry" component={EditEntry} />

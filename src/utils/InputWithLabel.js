@@ -37,7 +37,7 @@ export const InputWithLabel = ({
           <Text
             style={{
               color: '#BFBFBF',
-              marginTop: 0,
+              marginBottom: 8,
               fontFamily: 'Inter-Regular',
               fontSize: moderateScale(14),
             }}>
