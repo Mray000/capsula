@@ -76,6 +76,9 @@ export const Login = ({navigation}) => {
         <Text style={styles.sub_title}>
           Введите свой номер телефона для авторизации в приложении
         </Text>
+        <Text style={styles.sub_auth_title}>
+          Авторизация возможна для активных клиентов CAPSULA by Osipov. Если вы новый клиент, создайте свою первую запись главном разделе. Так вы зарегистрируетесь в системе YCLIENTS
+        </Text>
 
         <Input
           keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
@@ -94,6 +97,7 @@ export const Login = ({navigation}) => {
           style={[
             styles.sub_title,
             {
+              color: "#B3B3B3",
               paddingLeft: 30,
               paddingRight: 30,
               marginTop: 5,
@@ -139,6 +143,16 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     marginTop: 8,
     marginBottom: 8,
+    fontFamily: 'Inter-Regular',
+    textAlign: 'center',
+  },
+  sub_auth_title: {
+    fontSize: moderateScale(12),
+    color: '#B8B8B8',
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginTop: 8,
+    marginBottom: 24,
     fontFamily: 'Inter-Regular',
     textAlign: 'center',
   },
