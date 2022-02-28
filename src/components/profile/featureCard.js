@@ -31,7 +31,7 @@ export const FeatureCard = ({navigation, entry}) => {
             </View>
             <View style={styles.card_info_service}>
               <Text style={styles.card_service_text}>
-                {entry?.services.map(i => i.title)}
+                {entry?.services.map(i => i.title).join(', ')}
               </Text>
               <ArrowRight fill={onPress ? 'black' : '#E8E8E8'} />
             </View>

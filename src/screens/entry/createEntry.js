@@ -47,14 +47,8 @@ export const CreateEntry = ({navigation}) => {
   const {isAuth, error} = useSelector(state => state?.auth);
   const loading = useSelector(state => state?.common.loading);
 
-  const {
-    filial,
-    entryStatus,
-    entryError,
-    services,
-    stylist,
-    date_and_time,
-  } = useSelector(state => state?.entry);
+  const {filial, entryStatus, entryError, services, stylist, date_and_time} =
+    useSelector(state => state?.entry);
 
   const [isDetails, setIsDetails] = useState(true);
   const [name, setName] = useState(profile?.name ?? '');
@@ -140,7 +134,11 @@ export const CreateEntry = ({navigation}) => {
     } else {
       await dispatch(getCode(phone));
       if (!error || !entryError) {
-        navigation.navigate('EntryCode', {filialId: filial.id, appointment, data});
+        navigation.navigate('EntryCode', {
+          filialId: filial.id,
+          appointment,
+          data,
+        });
       }
     }
   };
@@ -149,20 +147,20 @@ export const CreateEntry = ({navigation}) => {
     setOpenNotification(false);
   };
 
-  const getHourName = (value) => {
-    switch (value){
+  const getHourName = value => {
+    switch (value) {
       case 1:
       case 21:
-        return "час"
+        return 'час';
       case 2:
       case 3:
       case 4:
       case 24:
-        return "час"
+        return 'час';
       default:
-        return "часов"
+        return 'часов';
     }
-  }
+  };
 
   const disableButton = !name || !phone || !agreement || loading;
   return (
@@ -285,8 +283,12 @@ export const CreateEntry = ({navigation}) => {
                       fontFamily: 'Inter-Medium',
                       fontSize: moderateScale(16),
                     }}>
-                    {notificationValue
-                      ? `За ${notificationValue} ${getHourName(notificationValue)} до визита`
+                    {notificationValue !== null
+                      ? notificationValue === 0
+                        ? 'Не отправлять'
+                        : `За ${notificationValue} ${getHourName(
+                            notificationValue,
+                          )} до визита`
                       : 'Напоминание'}
                   </Text>
                   <ArrowRight fill={is_active ? 'black' : '#D6D6D6'} />
@@ -354,13 +356,13 @@ export const CreateEntry = ({navigation}) => {
                             {stylist?.name}
                           </Text>
                         </View>
-                        <Text style={styles.card_price_count}>
-                          {services?.reduce(function (sum, elem) {
-                            return sum + elem.price;
-                          }, 0)}{' '}
-                          ₽
-                        </Text>
                       </View>
+                      <Text style={styles.card_price_count}>
+                        {services?.reduce(function (sum, elem) {
+                          return sum + elem.price;
+                        }, 0)}{' '}
+                        ₽
+                      </Text>
                     </View>
                   </TouchableOpacity>
                 </Shadow>
@@ -418,7 +420,11 @@ export const CreateEntry = ({navigation}) => {
               по адресу: {filial?.address}
             </Text>
           </SuccessModal>
-          <ErrorModal onPressClose={closeErrorModal} open={!!entryError} errorMessage={entryError}/>
+          <ErrorModal
+            onPressClose={closeErrorModal}
+            open={!!entryError}
+            errorMessage={entryError}
+          />
           {error ? (
             <Text
               style={{
@@ -569,6 +575,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   card_price_count: {
+    right: 10,
+    bottom: 2,
+    position: 'absolute',
     fontFamily: 'Inter-SemiBold',
     color: '#000000',
     fontSize: moderateScale(18),

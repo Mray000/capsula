@@ -289,7 +289,7 @@ export const Filials = ({navigation, route}) => {
       </KeyboardAwareScrollView>
       {is_map_active ? (
         <BottomSheet
-          height={verticalScale(200)}
+          height={verticalScale(210)}
           backgroundColor="null"
           sheetBackgroundColor="#FFFFFF"
           radius={30}
@@ -300,7 +300,7 @@ export const Filials = ({navigation, route}) => {
             <View
               style={{
                 padding: 10,
-                marginBottom: verticalScale(60),
+                marginBottom: verticalScale(70),
               }}>
               <View
                 style={{
@@ -327,7 +327,9 @@ export const Filials = ({navigation, route}) => {
                   }}
                 />
               </View>
-              <View>
+              <View  style={{
+                marginBottom: verticalScale(5),
+              }}>
                 <Text
                   style={{
                     color: '#B3B3B3',

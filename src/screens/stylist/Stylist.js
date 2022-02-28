@@ -58,9 +58,9 @@ export const Stylist = ({stylist, navigation, is_global}) => {
         shadowOpacity: 0.51,
         shadowRadius: 13.16,
         paddingHorizontal: 10,
+        paddingTop: 10,
 
         elevation: 10,
-        marginBottom: verticalScale(10),
         borderRadius: 20,
       }}>
       <View

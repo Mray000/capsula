@@ -47,7 +47,7 @@ export const StylistsList = ({navigation, route}) => {
       <View
         style={{
           backgroundColor: '#FCFCFC',
-          marginBottom: verticalScale(60),
+          marginBottom: verticalScale(70),
         }}>
         <View style={{paddingHorizontal: 10}}>
           {is_global ? (
@@ -68,7 +68,7 @@ export const StylistsList = ({navigation, route}) => {
             style={{
               backgroundColor: '#EFEFEF',
               flexDirection: 'row',
-              marginTop: 10,
+              marginTop: 10 ,
               marginBottom: 10,
               width: '100%',
               alignSelf: 'center',
@@ -99,7 +99,7 @@ export const StylistsList = ({navigation, route}) => {
           </View>
         </View>
         {!is_global ? (
-          <View style={{paddingHorizontal: 10}}>
+          <View style={{backgroundColor: '#EFEFEF', marginBottom: verticalScale(20), paddingHorizontal: 10}}>
             <TouchableOpacity
               onPress={() => {
                 dispatch(setStylist('Не имеет значения'));
@@ -128,25 +128,28 @@ export const StylistsList = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
         ) : null}
-        <FlatList
-          keyExtractor={item => item.id}
-          style={{backgroundColor: '#FCFCFC', marginBottom: verticalScale(is_global ? 100 : 150) }}
-          data={stylists
-            .filter(stylist => stylist.name !== 'Позвони мне')
-            .sort((a, b) => Number(b.weight) - Number(a.weight))
-            .filter(stylist =>
-              stylist.name.toLowerCase().includes(filter.toLocaleLowerCase()),
+        <View  style={{backgroundColor: '#EFEFEF',marginBottom: verticalScale(is_global ? 101 : 150)}}>
+          <FlatList
+            keyExtractor={item => item.id}
+            style={{backgroundColor: '#FCFCFC', marginBottom: verticalScale(is_global ? 100 : 150) }}
+            data={stylists
+              .filter(stylist => stylist.name !== 'Позвони мне')
+              .sort((a, b) => Number(b.weight) - Number(a.weight))
+              .filter(stylist =>
+                stylist.name.toLowerCase().includes(filter.toLocaleLowerCase()),
+              )}
+            renderItem={({item}) => (
+              <Stylist
+                key={item.id}
+                navigation={navigation}
+                stylist={item}
+                is_global={is_global}
+              />
             )}
-          renderItem={({item}) => (
-            <Stylist
-              key={item.id}
-              navigation={navigation}
-              stylist={item}
-              is_global={is_global}
-            />
-          )}
-        />
+          />
+        </View>
       </View>
+
       <BottomNavigator
         active={!is_global ? 'entry' : 'stylists'}
         navigation={navigation}

@@ -11,7 +11,7 @@ export const HistoryCard = ({entry}) => {
           {formatDateWithYearISOToString(entry.datetime)}
         </Text>
         <Text style={styles.history_card_service}>
-          {entry?.services.map(i => i.title)}
+          {entry?.services.map(i => i.title).join(', ')}
         </Text>
       </View>
       <View style={styles.history_card_price}>

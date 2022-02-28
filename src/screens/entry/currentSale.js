@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   clearServices,
   getSalesByIdTC,
-  setCurrentSaleInfo,
+  setCurrentSaleInfo, setFilial,
 } from '../../redux/entryReducer';
 import {Header} from 'utils/Header';
 import {dimisions} from 'utils/demisions';
@@ -26,6 +26,7 @@ export const CurrentSale = ({navigation, route}) => {
   }, [sale_id]);
 
   const createEntry = () => {
+    dispatch(setFilial(null))
     dispatch(
       clearServices([
         {
