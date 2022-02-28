@@ -153,6 +153,7 @@ export const StylistProfile = ({route, navigation}) => {
                 marginTop: 10,
               }}>
               <FlatList
+                style={{backgroundColor: '#FCFCFC', marginBottom: verticalScale(455 )}}
                 data={comments}
                 renderItem={({item}) => <Comment comment={item} key={item.id} />}
               />

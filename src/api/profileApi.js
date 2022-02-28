@@ -5,8 +5,8 @@ export const profileAPI = {
   getProfile(id) {
     return instance.get(`client/${COMPANY_ID}/${id}`);
   },
-  editProfile(id, data) {
-    return instance.put(`client/${COMPANY_ID}/${id}`, data);
+  editProfile(id, data, filialId) {
+    return instance.put(`client/${COMPANY_ID}/${id}?phone=79818273221`, data);
   },
   getLoyalityCards(user_id) {
     return instance.get(`loyalty/client_cards/${user_id}`);

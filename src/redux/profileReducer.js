@@ -55,7 +55,7 @@ export const editProfileInfoTC = (id, data) => async dispatch => {
     await profileAPI.editProfile(id, data);
     await dispatch(getProfileInfoTC(id));
   } catch (e) {
-    console.log(e);
+    console.log(e.response.data);
   }
   dispatch(setLoading(false));
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {dimisions} from 'utils/demisions';
 import {moderateScale} from 'utils/Normalize';
@@ -15,21 +15,25 @@ export const InputWithLabel = ({
 }) => {
   // multiline = false
   const [focus, setFocus] = useState(false);
+  const ref = useRef()
   return (
     <TouchableOpacity
-      onPress={() => setFocus(true)}
+      onPress={() => {
+        ref.current?.focus()
+        setFocus(true);
+      }}
+      ref={ref}
       style={{
         backgroundColor: '#FCFCFC',
         borderWidth: border ? 1 : 0,
         borderColor: '#E8E8E8',
         flexWrap: multiline ? 'wrap' : null,
         justifyContent: multiline ? 'flex-start' : 'space-between',
-        alignItems: multiline ? 'flex-start' : 'center',
         alignItems: 'center',
         flexDirection: 'row',
         marginBottom: 10,
         borderRadius: 15,
-        // paddingTop: (!value || multiline) ? 10 : 0,
+        paddingTop: multiline ? 10 : 0,
         paddingHorizontal: 20,
         height: multiline ? dimisions.height / 6 : dimisions.height / 10,
       }}>
@@ -47,6 +51,7 @@ export const InputWithLabel = ({
         <TextInput
           onBlur={() => setFocus(false)}
           onFocus={() => setFocus(true)}
+          focus={focus}
           editable={disabled}
           selectionColor={'black'}
           style={{

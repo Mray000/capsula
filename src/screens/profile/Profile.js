@@ -69,7 +69,7 @@ export const Profile = ({navigation}) => {
                     </Text>
                     {allEntries
                       ?.filter(i => beforeNowDates(i.datetime))
-                      .sort((a, b) => moment(a.datetime) - moment(b.datetime))
+                      .sort((a, b) => moment(b.datetime) - moment(a.datetime))
                       .map(i => (
                         <FeatureCard navigation={navigation} entry={i} />
                       ))}

@@ -25,7 +25,7 @@ export const ScoreCard = ({navigation, id, card_number, count}) => {
         </View>
         <View>
           <Text style={styles.score_title}>Баллов на счету:</Text>
-          <Text style={styles.score_count}>- {count} ₽</Text>
+          <Text style={styles.score_count}> {count} ₽</Text>
         </View>
       </View>
       <ArrowRight fill={onPress ? 'black' : '#E8E8E8'} />
@@ -62,19 +62,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: moderateScale(10),
     color: 'white',
-    lineHeight: 18,
   },
   score_title: {
     fontFamily: 'Inter-Regular',
     color: '#B0B0B0',
     fontSize: moderateScale(16),
-    lineHeight: 20,
     marginBottom: 8,
   },
   score_count: {
     fontFamily: 'Inter-SemiBold',
     color: 'black',
     fontSize: moderateScale(18),
-    lineHeight: 18,
   },
 });

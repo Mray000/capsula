@@ -1,6 +1,7 @@
 import {authAPI} from '../api/auth';
 import {setLoading} from './commonReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setProfileData} from "./profileReducer";
 
 const initialState = {
   isAuth: false,
@@ -78,9 +79,9 @@ export const login = (phone, code) => async dispatch => {
     const user = await authAPI.findUserByPhone(phone);
     const user_id = user?.data?.data[0]?.id?.toString();
     dispatch(setUserData(user_id, res.data.phone, res.data.user_token));
-    AsyncStorage.setItem('token', res.data.user_token);
-    AsyncStorage.setItem('phone', res.data.phone);
-    AsyncStorage.setItem('user_id', user_id);
+    await AsyncStorage.setItem('token', res.data.user_token);
+    await AsyncStorage.setItem('phone', res.data.phone);
+    await AsyncStorage.setItem('user_id', user_id);
     await dispatch(authMe());
     dispatch(setAuthStatus('success'));
   } catch (e) {
@@ -123,7 +124,11 @@ export const authMe = () => async dispatch => {
     if (token) {
       dispatch(setUserData(user_id, phone, token));
       dispatch(setIsAuth(true));
+    } else {
+      dispatch(setIsAuth(false));
+      dispatch(setProfileData({}))
     }
+    // dispatch(setProfileData({}))
     // await AsyncStorage.setItem('token', "78b793f92c4de110d0e6712390570e90");
     // await AsyncStorage.setItem('phone', "79818273221");
     // await AsyncStorage.setItem('user_id', "102362592");
@@ -138,10 +143,11 @@ export const authMe = () => async dispatch => {
 export const logout = () => async dispatch => {
   try {
     dispatch(setIsAuth(false));
+    dispatch(setProfileData({}))
     dispatch(setUserData(null, null, null));
-    AsyncStorage.removeItem('token');
-    AsyncStorage.removeItem('phone');
-    AsyncStorage.removeItem('user_id');
+    await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('phone');
+    await AsyncStorage.removeItem('user_id');
     dispatch(authMe());
   } catch (e) {
     console.log(e.response.data);
