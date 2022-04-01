@@ -16,6 +16,7 @@ import inst from 'assets/social_media/instagram.svg';
 import tiktok from 'assets/social_media/tiktok.svg';
 import fb from 'assets/social_media/facebook.svg';
 import ok from 'assets/social_media/ok.svg';
+import telegram from 'assets/social_media/telegram.svg';
 import Phone from 'assets/phone.svg';
 import Location from 'assets/address_location.svg';
 import Time from 'assets/time.svg';
@@ -54,6 +55,10 @@ export const Info = ({navigation}) => {
     {
       icon: ok,
       link: 'https://ok.ru/group/68419278143547',
+    },
+    {
+      icon: telegram,
+      link: 'https://t.me/capsulabyosipov',
     },
   ];
   const addresses = filials?.map(i => i.address);
@@ -102,7 +107,12 @@ export const Info = ({navigation}) => {
                 onPress={() => Linking.openURL(`tel:${phone_number}`)}
                 style={styles.phone_container}>
                 <Phone fill={'#CCCCCC'} style={styles.phone_icon} />
-                <Text style={styles.phone_title}>{phone_number}</Text>
+                <View style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#EBEBEB',
+                }}>
+                  <Text style={styles.phone_title}>{phone_number}</Text>
+                </View>
               </TouchableOpacity>
             </Shadow>
           </View>
@@ -275,9 +285,10 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingVertical: 10,
-    paddingHorizontal:
-      dimisions.width * 0.03 +
-      (dimisions.width * 0.94 - dimisions.width * 0.94 * 0.97) / 2,
+    paddingRight: dimisions.width * 0.03 +
+        (dimisions.width * 0.94 - dimisions.width * 0.94 * 0.90) / 2,
+    paddingLeft:   dimisions.width * 0.03 +
+        (dimisions.width * 0.94 - dimisions.width * 0.94 * 0.97) / 2,
   },
   phone_container: {
     paddingHorizontal: 20,
@@ -294,9 +305,6 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: moderateScale(19),
     fontFamily: 'Inter-SemiBold',
-    borderBottomWidth: 1,
-    borderBottomColor: '#EBEBEB',
-    lineHeight: 29,
   },
 
   addresses: {

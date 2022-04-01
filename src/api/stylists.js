@@ -51,6 +51,6 @@ export const stylistsAPI = {
       .then(data => data.data.map(el => el.time));
   },
   getComments(company_id, stylist_id) {
-    return instance.get(`comments/${company_id}/?staff_id=${stylist_id}`);
+    return instance.get(`comments/${company_id}/?staff_id=${stylist_id}&count=2000`);
   },
 };

@@ -24,7 +24,6 @@ export const Entry = ({navigation}) => {
     state => state.entry,
   );
   const [is_load, SetIsLoad] = useState(false);
-
   useEffect(() => {
     dispatch(getSalesTC());
     setTimeout(() => {
@@ -109,7 +108,7 @@ export const Entry = ({navigation}) => {
             мы рекомендуем
           </Text>
         </View>
-        <SalesSwipper navigation={navigation} data={sales.sort((a, b) => Number(a.min_price) - Number(b.min_price))} />
+        <SalesSwipper navigation={navigation} data={sales.sort((a, b) => Number(b.min_price) - Number(a.min_price))} />
         <View
           style={{
             paddingHorizontal:

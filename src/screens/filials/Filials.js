@@ -29,10 +29,10 @@ moment.locale('ru');
 export const Filials = ({navigation, route}) => {
   const dispatch = useDispatch();
 
-  const is_global = route?.params.is_global;
+  const is_global = route?.params?.is_global;
   const {allFilials,initialFilials } = useSelector(state => state?.filials);
-  const services = useSelector(state => state?.entry.services);
-  const loading = useSelector(state => state?.common.loading);
+  const services = useSelector(state => state?.entry?.services);
+  const loading = useSelector(state => state?.common?.loading);
   const [selected_filial, SetSelectedFilial] = useState(null);
   const [is_map_active, SetIsMapActive] = useState(true);
   const [filter, SetFilter] = useState('');
@@ -40,25 +40,25 @@ export const Filials = ({navigation, route}) => {
   const bottomSheet = useRef(null);
 
   useEffect(() => {
-    if (!is_global && services.length) {
+    if (!is_global && services?.length) {
       dispatch(getFilialsWithFilter(services[0].id));
     }
-    if (!initialFilials.length) {
+    if (!initialFilials?.length) {
       dispatch(getAllFilialsTC());
     }
-  }, [is_global, services.length]);
+  }, [is_global, services?.length]);
 
   const ShowFilialData = async filial => {
     if (moment(filial.datetime).isAfter(moment())) {
       SetSelectedFilial(filial);
-      bottomSheet.current.show();
+      bottomSheet?.current?.show();
     } else {
       const {stylists_length, datetime} = await dispatch(
         showFilialDataTC(filial),
       );
       dispatch(
         setAllFilials(last_filials => {
-          return last_filials.map(el => {
+          return last_filials?.map(el => {
             if (el.id === filial.id) return filial;
             else return el;
           });
@@ -69,7 +69,7 @@ export const Filials = ({navigation, route}) => {
     }
   };
 
-  const filials = is_global ? initialFilials : services.length ? allFilials : initialFilials
+  const filials = is_global ? initialFilials : services?.length ? allFilials : initialFilials
   if (!filials?.length || loading) return <Loader />;
   return (
     <>
@@ -186,8 +186,8 @@ export const Filials = ({navigation, route}) => {
               />
             </View>
             {filials
-              .filter(filial => filial.address.includes(filter))
-              .map(filial => (
+              ?.filter(filial => filial?.address.includes(filter))
+              ?.map(filial => (
                 <Shadow
                   key={filial.id}
                   startColor={'#00000006'}
@@ -228,13 +228,13 @@ export const Filials = ({navigation, route}) => {
                           fontFamily: 'Inter-Medium',
                           fontSize: moderateScale(14),
                         }}>
-                        {filial.address}
+                        {filial?.address}
                       </Text>
                     </View>
                     <MapView
                       region={{
-                        latitude: filial.coordinate_lat,
-                        longitude: filial.coordinate_lon,
+                        latitude: filial?.coordinate_lat,
+                        longitude: filial?.coordinate_lon,
                         latitudeDelta: 0.1,
                         longitudeDelta: 0.1,
                       }}
@@ -245,8 +245,8 @@ export const Filials = ({navigation, route}) => {
                       <Marker
                         tracksViewChanges={false}
                         coordinate={{
-                          latitude: filial.coordinate_lat,
-                          longitude: filial.coordinate_lon,
+                          latitude: filial?.coordinate_lat,
+                          longitude: filial?.coordinate_lon,
                         }}>
                         <Image
                           source={selected_location}
@@ -314,7 +314,7 @@ export const Filials = ({navigation, route}) => {
                     fontFamily: 'Inter-Medium',
                     fontSize: moderateScale(15),
                   }}>
-                  {selected_filial.address}
+                  {selected_filial?.address}
                 </Text>
 
                 <Button
@@ -344,7 +344,7 @@ export const Filials = ({navigation, route}) => {
                     fontSize: moderateScale(15),
                     color: 'black',
                   }}>
-                  {moment(selected_filial.datetime).format('D MMMM HH:mm')}
+                  {moment(selected_filial?.datetime).format('D MMMM HH:mm')}
                   <Text
                     style={{
                       fontFamily: 'Inter-Regular',
@@ -352,7 +352,7 @@ export const Filials = ({navigation, route}) => {
                       color: '#B3B3B3',
                       textTransform: 'none',
                     }}>
-                    &nbsp; {selected_filial.stylists_length} активных стилистов
+                    &nbsp; {selected_filial?.stylists_length} активных стилистов
                   </Text>
                 </Text>
               </View>

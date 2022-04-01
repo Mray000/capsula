@@ -25,7 +25,7 @@ export const Calendar = ({navigation, route}) => {
   useEffect(() => {
     dispatch(getStylistBookableSeancesTC(
       filial_id ?? filial.id,
-      stylist_id ?? stylist?.id,
+      stylist_id ?? stylist?.name === 'Не имеет значения' ? 0 : stylist?.id,
       service_id ?? services.map(el => el.id),
     ))
     return () => {

@@ -46,7 +46,6 @@ export const Stylist = ({stylist, navigation, is_global}) => {
           SetIsLoad(false);
         });
   }, [is_load]);
-
   return (
     <View
       style={{
@@ -58,8 +57,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
         shadowOpacity: 0.51,
         shadowRadius: 13.16,
         paddingHorizontal: 10,
-        paddingTop: 10,
-
+        paddingBottom: 10,
         elevation: 10,
         borderRadius: 20,
       }}>

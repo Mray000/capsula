@@ -24,7 +24,9 @@ export const ErrorModal = ({
           containerViewStyle={{
             position: 'absolute',
             right: scale(10),
-            top: verticalScale(10),
+            height:45,
+            width: 45,
+            top: verticalScale(40),
           }}>
           <TouchableOpacity onPress={onPressClose} style={styles.close_button}>
             <X width={13} height={13} fill="#45413E" />

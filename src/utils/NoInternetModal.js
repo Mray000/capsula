@@ -8,13 +8,18 @@ import {Button} from 'utils/Button';
 import {dimisions} from 'utils/demisions';
 import {useNavigation} from '@react-navigation/core';
 import NetInfo from '@react-native-community/netinfo';
+import {clearAllCreateEntryFields, getSalesTC} from "../redux/entryReducer";
 
 export const NoInternetModal = ({open}) => {
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
+  const [init, setInit] = useState(false)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     unsubscribe();
+    setTimeout(() => {
+      setInit(true);
+    }, 4000);
   }, []);
 
   function unsubscribe() {
@@ -34,7 +39,7 @@ export const NoInternetModal = ({open}) => {
     unsubscribe();
   };
 
-  if (!open) {
+  if (!open || !init) {
     return null;
   }
 

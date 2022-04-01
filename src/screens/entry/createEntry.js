@@ -35,11 +35,12 @@ import {
   setNewDateEntry,
   setStylist,
 } from '../../redux/entryReducer';
-import {getCode} from '../../redux/authReducer';
+import {getCode, setAuthError} from '../../redux/authReducer';
 import {SuccessModal} from 'utils/SuccessModal';
 import Checked from 'assets/checked.svg';
 import {AGREEMENT_DOC} from '../../constants';
 import {ErrorModal} from 'utils/ErrorModal';
+import {CheckIsValidPhone} from "utils/Phone";
 
 export const CreateEntry = ({navigation}) => {
   const dispatch = useDispatch();
@@ -70,8 +71,15 @@ export const CreateEntry = ({navigation}) => {
   }, []);
 
   useEffect(() => {
+    dispatch(setAuthError(''))
+  },[phone])
+
+  useEffect(() => {
     if (entryStatus === 'OK') {
       setSuccessCreateEntry(true);
+    }
+    return () => {
+      dispatch(setAuthError(""))
     }
   }, [entryStatus]);
 
@@ -96,7 +104,6 @@ export const CreateEntry = ({navigation}) => {
     latitudeDelta: 0.1,
     longitudeDelta: 0.1,
   });
-
   const createEntryHandler = async () => {
     const appointment = {
       appointments: [
@@ -129,6 +136,10 @@ export const CreateEntry = ({navigation}) => {
         },
       ],
     };
+    if (!CheckIsValidPhone(phone)) {
+     return dispatch(setAuthError('Введите верный номер'));
+    }
+
     if (isAuth) {
       dispatch(createEntryTC(filial.id, appointment, data));
     } else {
@@ -327,7 +338,7 @@ export const CreateEntry = ({navigation}) => {
                 </TouchableOpacity>
               </View>
             ) : (
-              <View>
+              <View style={{marginTop: 15,}}>
                 <Shadow viewStyle={{width: '100%', marginBottom: 16}}>
                   <TouchableOpacity style={styles.card_container}>
                     <View style={styles.card}>
@@ -430,7 +441,8 @@ export const CreateEntry = ({navigation}) => {
               style={{
                 fontSize: moderateScale(14),
                 color: '#E82E2E',
-                textAlign: 'right',
+                paddingVertical: 10,
+                textAlign: 'center',
               }}>
               {error}
             </Text>

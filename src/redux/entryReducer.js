@@ -1,6 +1,6 @@
 import {entryAPI} from '../api/entry';
 import {setLoading} from './commonReducer';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {COMPANY_ID} from '../constants';
 
 const initialState = {

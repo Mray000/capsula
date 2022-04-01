@@ -52,8 +52,9 @@ export const Category = ({
 
       {is_open ? (
         <View style={{marginTop: 5}}>
-          {staffs.map(item => (
+          {staffs.filter(i => i.price_max !== 0 || i.price_min !== 0).map(item => (
             <Service
+                item={item}
               key={item.id}
               id={item.id}
               image={item.image}

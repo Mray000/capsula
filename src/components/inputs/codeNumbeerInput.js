@@ -24,6 +24,7 @@ export const CodeNumberInput = ({innerRef, number, onChange, error}) => {
         viewStyle={styles.shadow_container}
         containerViewStyle={styles.shadow_container}>
         <TextInput
+            textContentType="oneTimeCode"
           selectionColor={'black'}
           onBlur={() => SetIsFocused(!is_focus)}
           onFocus={() => SetIsFocused(!is_focus)}

@@ -1,7 +1,7 @@
 import {profileAPI} from '../api/profileApi';
 import {setLoading} from './commonReducer';
-import {CAPSULA_EMAIL, COMPANY_ID, LOYALITY_CARD_ID} from '../constants';
-import {AsyncStorage} from 'react-native';
+import {CAPSULA_EMAIL, LOYALITY_CARD_ID} from '../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setEntryError, setEntryStatus} from './entryReducer';
 
 const initialState = {

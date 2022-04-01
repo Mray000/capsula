@@ -62,6 +62,7 @@ export const EntryDetails = ({navigation, route}) => {
   };
   const removeEntryHandler = async () => {
     await dispatch(removeEntryTC(entryId));
+    setShowConfirmRemoveEntry(false)
     setSuccessRemoveEntry(true);
   };
 

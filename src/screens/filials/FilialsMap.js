@@ -17,11 +17,11 @@ export const FilialsMap = ({filials, selected_filial, ShowFilialData}) => {
   });
   useEffect(() => {
     if (search) {
-      let filial = filials.find(el => el.address.includes(search));
+      let filial = filials?.find(el => el.address.includes(search));
       if (filial) {
         SetRegion({
-          latitude: filial.coordinate_lat,
-          longitude: filial.coordinate_lon,
+          latitude: filial?.coordinate_lat,
+          longitude: filial?.coordinate_lon,
           latitudeDelta: 0.1,
           longitudeDelta: 0.1,
         });
@@ -42,20 +42,20 @@ export const FilialsMap = ({filials, selected_filial, ShowFilialData}) => {
           <Marker
             key={index}
             coordinate={{
-              latitude: marker.coordinate_lat,
-              longitude: marker.coordinate_lon,
+              latitude: marker?.coordinate_lat,
+              longitude: marker?.coordinate_lon,
             }}
             onPress={() => {
               SetRegion({
-                latitude: marker.coordinate_lat,
-                longitude: marker.coordinate_lon,
+                latitude: marker?.coordinate_lat,
+                longitude: marker?.coordinate_lon,
                 latitudeDelta: 0.1,
                 longitudeDelta: 0.1,
               });
               ShowFilialData(marker);
             }}>
             <Image
-              source={selected_filial === marker ? selected_location : location}
+              source={selected_filial?.address === marker?.address ? selected_location : location}
               style={{height: 45, width: 45}}
             />
           </Marker>

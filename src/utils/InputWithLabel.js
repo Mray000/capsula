@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {dimisions} from 'utils/demisions';
 import {moderateScale} from 'utils/Normalize';
 
 export const InputWithLabel = ({
@@ -13,11 +12,11 @@ export const InputWithLabel = ({
   disabled = true,
   ...props
 }) => {
-  // multiline = false
   const [focus, setFocus] = useState(false);
   const ref = useRef()
   return (
     <TouchableOpacity
+        disabled={!props.editable ?? false}
       onPress={() => {
         ref.current?.focus()
         setFocus(true);
@@ -35,7 +34,7 @@ export const InputWithLabel = ({
         borderRadius: 15,
         paddingTop: multiline ? 10 : 0,
         paddingHorizontal: 20,
-        height: multiline ? dimisions.height / 6 : dimisions.height / 10,
+        height: multiline ? 150 : 64,
       }}>
       <View style={{width: '90%', justifyContent: 'space-around'}}>
         {value || focus ? (

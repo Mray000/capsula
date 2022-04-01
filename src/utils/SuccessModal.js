@@ -25,7 +25,9 @@ export const SuccessModal = ({
           containerViewStyle={{
             position: 'absolute',
             right: scale(10),
-            top: verticalScale(10),
+            height:45,
+            width: 45,
+            top: verticalScale(40),
           }}>
           <TouchableOpacity
             onPress={onPressClose}

@@ -90,12 +90,13 @@ export const Service = ({
                 {is_active ? <Checked /> : null}
               </View>
               <Text
-                numberOfLines={1}
+                numberOfLines={3}
                 style={{
                   fontSize: moderateScale(13),
                   color: 'black',
                   fontFamily: 'Inter-Regular',
                   marginTop: 3,
+                    paddingRight: 50,
                 }}>
                 {title}
               </Text>

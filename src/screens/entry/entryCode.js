@@ -1,77 +1,59 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import X from 'assets/x.svg';
 import {Button} from 'utils/Button';
 import {moderateScale, scale, verticalScale} from 'utils/Normalize';
 import {useDispatch, useSelector} from 'react-redux';
-import {getCode, setAuthError} from '../../redux/authReducer';
-import {createEntryTC} from '../../redux/entryReducer';
-import {CodeNumberInput} from '../../components/inputs/codeNumbeerInput';
+import {getCode, setAuthError, setAuthStatus} from '../../redux/authReducer';
+import {createEntryTC, setEntryStatus} from '../../redux/entryReducer';
+import VerifyCode from "utils/code/verifyCode";
 
 export const EntryCode = ({navigation, route}) => {
   const dispatch = useDispatch();
 
-  const [first_number, setFirstNumber] = useState('');
-  const [second_number, setSecondNumber] = useState('');
-  const [third_number, setThirdNumber] = useState('');
-  const [fourth_number, setFourthNumber] = useState('');
+  const [code, setCode] = useState("")
 
   const loading = useSelector(state => state?.common.loading);
-  const {error, status} = useSelector(state => state?.auth);
+  const {error} = useSelector(state => state?.auth);
+  const entryStatus = useSelector(state => state?.entry.entryStatus);
+
+  useEffect(() => {
+    if (entryStatus === 'OK') {
+      navigation.goBack();
+      dispatch(setAuthError(null));
+      dispatch(setEntryStatus(null));
+    }
+  }, [entryStatus]);
+
+  useEffect(() => {
+    return () => {
+      setCode("")
+      dispatch(setEntryStatus(null));
+      dispatch(setAuthStatus(null));
+      dispatch(setAuthError(null));
+    }
+  },[])
 
   const appointment = route?.params?.appointment;
   const data = route?.params?.data;
   const filialId = route?.params?.filialId;
 
-  const first_ref = useRef();
-  const second_ref = useRef();
-  const third_ref = useRef();
-  const fourth_ref = useRef();
-
-  const setNumberHandler = (id, setValue) => string => {
-    if (string.trim() && !isNaN(string)) {
-      setValue(string);
-      dispatch(setAuthError(''));
-      if (id === 2) second_ref.current?.focus();
-      if (id === 3) third_ref.current?.focus();
-      if (id === 4) fourth_ref.current?.focus();
-      if (id === 5) onSubmitHandler(string);
-    } else {
-      if (id === 5 && string === '') third_ref.current?.focus();
-      if (id === 4 && !string) second_ref.current?.focus();
-      if (id === 3 && !string) first_ref.current?.focus();
-      setValue('');
-      dispatch(setAuthError(''));
-    }
-  };
+  const onInputCompleted = async (e) => {
+    await dispatch(
+        createEntryTC(filialId, appointment, {...data, code: e}),
+    )
+  }
+  const onInputChangeText = async (e) => {
+    dispatch(setAuthError(''));
+    setCode(e)
+  }
   const repeatGetCode = async () => {
     await dispatch(getCode(data.phone));
   };
-  const onSubmitHandler = async fourth => {
-    const code = first_number + second_number + third_number + fourth;
-    code.length === 4
-      ? await dispatch(
-          createEntryTC(filialId, appointment, {...data, code: code}),
-        )
-      : dispatch(setAuthError('Введите весь код'));
-  };
 
-  useEffect(() => {
-    if (first_ref?.current && !first_number) {
-      first_ref.current?.focus();
-    }
-  }, [first_ref?.current]);
   const is_button_disabled =
-    loading ||
-    !(first_number || second_number || third_number || fourth_number);
+      loading || code.length !== 4
 
   return (
     <KeyboardAvoidingView
@@ -89,42 +71,36 @@ export const EntryCode = ({navigation, route}) => {
             top: verticalScale(10),
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Entry')}
+            onPress={() => {
+              dispatch(setAuthError(null));
+              navigation.navigate('Entry')
+            }}
             style={styles.close_button}>
             <X width={13} height={13} fill="#45413E" />
           </TouchableOpacity>
         </Shadow>
         <Text style={styles.title}>Введите код из смс-сообщения</Text>
         <View style={styles.sub_title}>
-          <CodeNumberInput
-            innerRef={first_ref}
-            error={error}
-            number={first_number}
-            onChange={setNumberHandler(2, setFirstNumber)}
-          />
-          <CodeNumberInput
-            innerRef={second_ref}
-            error={error}
-            number={second_number}
-            onChange={setNumberHandler(3, setSecondNumber)}
-          />
-          <CodeNumberInput
-            innerRef={third_ref}
-            error={error}
-            number={third_number}
-            onChange={setNumberHandler(4, setThirdNumber)}
-          />
-          <CodeNumberInput
-            innerRef={fourth_ref}
-            error={error}
-            number={fourth_number}
-            onChange={setNumberHandler(5, setFourthNumber)}
+          <VerifyCode
+              onInputChangeText={onInputChangeText}
+              onInputCompleted={onInputCompleted}
+              autoFocus
+              containerBackgroundColor="transparent"
+              verifyCodeLength={4}
+              containerPaddingHorizontal={scale(25)}
+              codeViewBorderColor={error ? "red" : "transparent"}
+              codeViewBackgroundColor={"#E6E6E6"}
+              focusedCodeViewBorderColor="#000000"
+              coverColor={"#000000"}
+              codeViewBorderRadius={15}
+              codeFontSize={28}
+              codeViewBorderWidth={1}
           />
         </View>
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <Button
           text={'Далее'}
-          onPress={() => onSubmitHandler(fourth_number)}
+          onPress={() => onInputCompleted()}
           disabled={is_button_disabled}
         />
         <TouchableOpacity style={{marginTop: 15}} onPress={repeatGetCode}>
