@@ -5,7 +5,8 @@ import {
     Platform,
     StyleSheet,
     Text,
-    TouchableOpacity, TouchableWithoutFeedback,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
     View,
 } from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
@@ -14,7 +15,7 @@ import Phone from 'assets/phone.svg';
 import {Button} from 'utils/Button';
 import X from 'assets/x.svg';
 import {CheckIsValidPhone, FormatPhone} from 'utils/Phone';
-import {moderateScale, scale, verticalScale} from 'utils/Normalize';
+import {moderateScale} from 'utils/Normalize';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCode, setAuthError, setAuthStatus} from '../../redux/authReducer';
 
@@ -132,6 +133,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+        paddingTop: 40,
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -22,7 +22,7 @@ export const Profile = ({navigation}) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const {isAuth, id} = useSelector(state => state?.auth);
+  const { id} = useSelector(state => state?.auth);
   const {profile, loyality_cards, allEntries} = useSelector(
     state => state?.profile,
   );
@@ -36,9 +36,6 @@ export const Profile = ({navigation}) => {
     };
   }, [id, isFocused]);
 
-  // if (!isAuth) {
-  //   navigation.navigate('Login');
-  // }
   if (loading || !isFocused) return <Loader />;
   return (
     <>
