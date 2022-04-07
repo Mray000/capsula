@@ -53,6 +53,7 @@ export const login = (phone, code) => async dispatch => {
             await AsyncStorage.setItem('token', '2804f52ec42edcdbe0e80b827f018fd8')
             await AsyncStorage.setItem('phone', '79675557371')
             await AsyncStorage.setItem('user_id', '125672700')
+            await AsyncStorage.setItem('company_id', '68870')
             dispatch(
                 setUserData(
                     '125672700',
@@ -64,17 +65,24 @@ export const login = (phone, code) => async dispatch => {
             dispatch(setAuthStatus('success'))
         } else {
             const res = await authAPI.login(phone, code);
-            const user = await authAPI.findUserByPhone(phone);
-            const user_id = user?.data?.data[0]?.id?.toString();
-            dispatch(setUserData(user_id, res.data.phone, res.data.user_token));
-            await AsyncStorage.setItem('token', res.data.user_token);
-            await AsyncStorage.setItem('phone', res.data.phone);
-            await AsyncStorage.setItem('user_id', user_id);
-            if (!res.data.user_token || !user_id) {
-                dispatch(setAuthError("Пользователь не зарегестрирован"));
+            if (res?.data?.user_token) {
+                const user = await authAPI.findUserByPhone(phone);
+                const user_id = user?.data?.data?.clients?.[0]?.id?.toString();
+                const company_id = user?.data?.data?.clients?.[0]?.company_id?.toString();
+                dispatch(setUserData(user_id, res.data.phone, res.data.user_token));
+                await AsyncStorage.setItem('token', res.data.user_token);
+                await AsyncStorage.setItem('phone', res.data.phone);
+                await AsyncStorage.setItem('user_id', user_id);
+                await AsyncStorage.setItem('company_id', company_id);
+                if (!user_id) {
+                    dispatch(setAuthError("Пользователь не зарегестрирован"));
+                } else {
+                    await dispatch(authMe());
+                    dispatch(setAuthStatus('success'));
+                }
             } else {
-                await dispatch(authMe());
-                dispatch(setAuthStatus('success'));
+                dispatch(setAuthError(e?.response?.data?.errors?.message ?? "Вход не выполнен. Свяжитесь с представителем нашей сети"));
+
             }
         }
     } catch (e) {

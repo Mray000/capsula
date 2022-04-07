@@ -41,7 +41,8 @@ export const setAllEntries = allEntries => ({
 export const getProfileInfoTC = id => async dispatch => {
   dispatch(setLoading(true));
   try {
-    const res = await profileAPI.getProfile(id);
+    const company_id = await AsyncStorage.getItem("company_id")
+    const res = await profileAPI.getProfile(id, company_id);
     dispatch(setProfileData(res.data));
   } catch (e) {
     console.log(e.response.data);
@@ -52,7 +53,8 @@ export const getProfileInfoTC = id => async dispatch => {
 export const editProfileInfoTC = (id, data) => async dispatch => {
   dispatch(setLoading(true));
   try {
-    await profileAPI.editProfile(id, data);
+    const company_id = await AsyncStorage.getItem("company_id")
+    await profileAPI.editProfile(id, data, company_id);
     await dispatch(getProfileInfoTC(id));
   } catch (e) {
     console.log(e.response.data);

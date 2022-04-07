@@ -2,6 +2,7 @@ import {entryAPI} from '../api/entry';
 import {setLoading} from './commonReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {COMPANY_ID} from '../constants';
+import {filialsAPI} from "../api/filials";
 
 const initialState = {
   entry: {},
@@ -167,18 +168,34 @@ export const getEntryTC = (company_id, entryId) => async dispatch => {
 export const getSalesTC = () => async dispatch => {
   dispatch(setLoading(true));
   try {
-    let salese_data = await entryAPI.getSales(COMPANY_ID);
-    const all_filials_sales = salese_data
-      .filter(el => el.category_id === 4218539)
-      .filter(el => el.active === 1)
-      .map(el => ({
-        image: el.image_group?.images?.basic?.path,
-        title: el.booking_title,
-        min_price: el.price_min,
-        max_price: el.price_max,
-        id: el.id,
-      }));
-    dispatch(setSales(all_filials_sales));
+    let filials = await filialsAPI.getFilials();
+    let salese_data = await Promise.all(
+        filials.data.map(async filial => await entryAPI.getSales(filial.id)),
+    );
+    const all_filials_sales = salese_data.map(sale =>
+        sale
+            .filter(el => el?.category_id === 4218539)
+            .filter(el => el?.image_group?.images?.basic?.path)
+            .filter(el => el?.active === 1)
+            .map(el => ({
+              image: el?.image_group?.images?.basic?.path,
+              title: el?.booking_title,
+              min_price: el?.price_min,
+              max_price: el?.price_max,
+              id: el?.id,
+              comment: el?.comment,
+            })),
+    );
+    const sales_array = all_filials_sales.flat();
+    let unique = [];
+    let distinct = [];
+    for (let i = 0; i < sales_array.length; i++) {
+      if (!unique[sales_array[i].id]) {
+        distinct.push(sales_array[i]);
+        unique[sales_array[i].id] = 1;
+      }
+    }
+    dispatch(setSales(distinct));
   } catch (e) {
     console.log('sales', e?.response?.data);
   }

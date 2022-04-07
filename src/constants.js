@@ -1,7 +1,7 @@
 export const COMPANY_ID = 68870;
 export const COMPANY_TOKEN = 'te4ned5zsnhcg8xnwk25';
 export const GROUP_ID = 45997;
-export const USER_TOKEN = "f254cab1eb81ea428c7e22351417f037";
+export const USER_TOKEN = "4a5e8b745db68e1cb7683b396a85bcc4";
 export const LOYALITY_CARD_ID = 33121;
 export const CAPSULA_EMAIL = "capsulabyosipov.ru";
 

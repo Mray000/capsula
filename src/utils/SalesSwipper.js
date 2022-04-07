@@ -95,11 +95,7 @@ export default class SalesSwipper extends Component {
                 item={item}
                 width={itemWidth}
                 imageKey={this.props.imageKey}
-                onPress={() =>
-                  this.state.navigation.navigate('CurrentSale', {
-                    sale_id: item.id,
-                  })
-                }
+                onPress={() => this.state.navigation.navigate("CurrentSale", {currentSaleInfo: item})}
                 index={index}
                 active={index === this.state.index}
                 local={this.props.local}

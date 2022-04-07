@@ -1,12 +1,12 @@
 import {instance} from './instance';
-import {COMPANY_ID, COMPANY_TOKEN} from '../constants';
+import {COMPANY_TOKEN} from '../constants';
 
 export const profileAPI = {
-  getProfile(id) {
-    return instance.get(`client/${COMPANY_ID}/${id}`);
+  getProfile(id, company_id) {
+    return instance.get(`client/${company_id}/${id}`);
   },
-  editProfile(id, data) {
-    return instance.put(`client/${COMPANY_ID}/${id}`, data);
+  editProfile(id, data, company_id) {
+    return instance.put(`client/${company_id}/${id}`, data);
   },
   getLoyalityCards(user_id) {
     return instance.get(`loyalty/client_cards/${user_id}`);
