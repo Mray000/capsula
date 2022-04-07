@@ -1,5 +1,4 @@
-import {instance} from './instance';
-import {COMPANY_ID, COMPANY_TOKEN} from '../constants';
+import {COMPANY_ID, COMPANY_TOKEN, GROUP_ID, USER_TOKEN} from '../constants';
 import axios from 'axios';
 
 export const authAPI = {
@@ -28,15 +27,14 @@ export const authAPI = {
     );
   },
   findUserByPhone(phone) {
-    return instance.post(`company/${COMPANY_ID}/clients/search`, {
-      filters: [
+    return axios.get(
+        `https://api.yclients.com/api/v1/group/${GROUP_ID}/clients/?phone=${phone}`,
         {
-          type: "quick_search",
-          state: {
-            value: phone,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${COMPANY_TOKEN}, User ${USER_TOKEN}`,
           },
         },
-      ],
-    });
+    );
   },
 };

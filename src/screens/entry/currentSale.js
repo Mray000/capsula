@@ -1,14 +1,9 @@
-import React, {useEffect} from 'react';
-import {ScrollView, View, Text, Image} from 'react-native';
+import React from 'react';
+import {Image, ScrollView, Text, View} from 'react-native';
 import {moderateScale, verticalScale} from 'utils/Normalize';
 import {BottomNavigator} from 'utils/BottomNavigator';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  clearServices,
-  getSalesByIdTC,
-  setCurrentSaleInfo,
-  setFilial,
-} from '../../redux/entryReducer';
+import {useDispatch} from 'react-redux';
+import {clearServices, setFilial,} from '../../redux/entryReducer';
 import {Header} from 'utils/Header';
 import {dimisions} from 'utils/demisions';
 import {Loader} from 'utils/Loader';
@@ -16,15 +11,8 @@ import {Button} from 'utils/Button';
 
 export const CurrentSale = ({navigation, route}) => {
   const dispatch = useDispatch();
-  const {sale_id} = route?.params;
-  const {currentSaleInfo} = useSelector(state => state?.entry);
+  const {currentSaleInfo} = route?.params;
 
-  useEffect(() => {
-    dispatch(getSalesByIdTC(sale_id));
-    return () => {
-      dispatch(setCurrentSaleInfo({}));
-    };
-  }, [sale_id]);
   const createEntry = () => {
     dispatch(setFilial(null));
     dispatch(
@@ -68,7 +56,7 @@ export const CurrentSale = ({navigation, route}) => {
                 borderRadius: 15,
                 width: dimisions.width - 20,
               }}
-              source={{uri: currentSaleInfo.image_group.images.basic.path}}
+              source={{uri: currentSaleInfo?.image}}
             />
           </View>
           <View>
@@ -81,7 +69,7 @@ export const CurrentSale = ({navigation, route}) => {
                 marginTop: 10,
                 marginBottom: 8,
               }}>
-              {currentSaleInfo?.booking_title}
+              {currentSaleInfo?.title}
             </Text>
             <Text
               allowFontScaling={false}
@@ -97,9 +85,9 @@ export const CurrentSale = ({navigation, route}) => {
                 fontFamily: 'Inter-SemiBold',
                 fontSize: moderateScale(18),
               }}>
-              {currentSaleInfo.price_min === currentSaleInfo.price_max
-                ? `${currentSaleInfo.price_min} ₽`
-                : `${currentSaleInfo.price_min} - ${currentSaleInfo.price_max} ₽`}
+              {currentSaleInfo?.min_price === currentSaleInfo?.max_price
+                ? `${currentSaleInfo?.min_price} ₽`
+                : `${currentSaleInfo?.min_price} - ${currentSaleInfo?.max_price} ₽`}
             </Text>
             <Text
               allowFontScaling={false}
@@ -110,7 +98,7 @@ export const CurrentSale = ({navigation, route}) => {
                 lineHeight: 26,
                 marginBottom: 18,
               }}>
-              {currentSaleInfo.comment}
+              {currentSaleInfo?.comment}
             </Text>
           </View>
         </View>
