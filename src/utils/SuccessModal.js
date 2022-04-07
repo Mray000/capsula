@@ -12,7 +12,7 @@ export const SuccessModal = ({
   onPressClose,
   children,
   underButtonTitle,
-  buttonText = "Ок"
+  buttonText = 'Ок',
 }) => {
   if (!open) {
     return null;
@@ -25,13 +25,11 @@ export const SuccessModal = ({
           containerViewStyle={{
             position: 'absolute',
             right: scale(10),
-            height:45,
+            height: 45,
             width: 45,
             top: verticalScale(40),
           }}>
-          <TouchableOpacity
-            onPress={onPressClose}
-            style={styles.close_button}>
+          <TouchableOpacity onPress={onPressClose} style={styles.close_button}>
             <X width={13} height={13} fill="#45413E" />
           </TouchableOpacity>
         </Shadow>
@@ -40,8 +38,7 @@ export const SuccessModal = ({
           {children}
         </View>
         {underButtonTitle && (
-          <Text
-            style={styles.under_button_text}>
+          <Text allowFontScaling={false} style={styles.under_button_text}>
             {underButtonTitle}
           </Text>
         )}
@@ -54,8 +51,8 @@ export const SuccessModal = ({
 const styles = StyleSheet.create({
   centered_view: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#ffffff',
     paddingVertical: 25,
     paddingHorizontal:

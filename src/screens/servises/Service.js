@@ -90,13 +90,14 @@ export const Service = ({
                 {is_active ? <Checked /> : null}
               </View>
               <Text
+                allowFontScaling={false}
                 numberOfLines={3}
                 style={{
                   fontSize: moderateScale(13),
                   color: 'black',
                   fontFamily: 'Inter-Regular',
                   marginTop: 3,
-                    paddingRight: 50,
+                  paddingRight: 50,
                 }}>
                 {title}
               </Text>
@@ -109,6 +110,7 @@ export const Service = ({
                   justifyContent: 'space-between',
                 }}>
                 <Text
+                  allowFontScaling={false}
                   onTextLayout={onTextLayout}
                   numberOfLines={textShown ? null : 2}
                   style={{
@@ -139,6 +141,7 @@ export const Service = ({
             ) : null}
 
             <Text
+              allowFontScaling={false}
               style={{
                 fontSize: moderateScale(14),
                 color: 'black',

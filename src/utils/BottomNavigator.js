@@ -16,10 +16,9 @@ import info from 'assets/info.svg';
 import person from 'assets/person.svg';
 import {moderateScale, verticalScale} from './Normalize';
 import {dimisions} from './demisions';
-import {useSelector} from "react-redux";
+import {useSelector} from 'react-redux';
 export const BottomNavigator = ({active, navigation}) => {
   const isAuth = useSelector(state => state.auth.isAuth);
-
 
   let navigators = [
     {
@@ -50,7 +49,7 @@ export const BottomNavigator = ({active, navigation}) => {
     {
       title: 'Профиль',
       icon: person,
-      to: isAuth ? 'Profile' : "Login",
+      to: isAuth ? 'Profile' : 'Login',
       is_active: active === 'profile',
     },
   ];
@@ -58,7 +57,7 @@ export const BottomNavigator = ({active, navigation}) => {
     <View style={styles.main}>
       {navigators.map(el => (
         <TouchableOpacity
-            key={el.title}
+          key={el.title}
           style={{
             width: '20%',
             alignItems: 'center',
@@ -70,10 +69,12 @@ export const BottomNavigator = ({active, navigation}) => {
             stroke_fill={el.is_active ? 'black' : '#B3B3B3'}
           />
           <Text
+            allowFontScaling={false}
+            allowFontScaling={false}
             style={{
               fontFamily: 'Inter-Medium',
               color: el.is_active ? 'black' : '#B3B3B3',
-              fontSize: moderateScale(12),
+              fontSize: moderateScale(14),
             }}>
             {el.title}
           </Text>

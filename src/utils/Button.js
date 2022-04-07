@@ -29,6 +29,7 @@ export const Button = ({
       {...props}
       disabled={disabled}>
       <Text
+        allowFontScaling={false}
         style={{
           color: disabled ? '#9E9E9E' : 'white',
           fontSize: moderateScale(18),

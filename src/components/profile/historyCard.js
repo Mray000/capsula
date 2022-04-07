@@ -1,16 +1,19 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {moderateScale} from 'utils/Normalize';
-import {formatDateISOToString, formatDateWithYearISOToString} from 'utils/dateUtils';
+import {
+  formatDateISOToString,
+  formatDateWithYearISOToString,
+} from 'utils/dateUtils';
 
 export const HistoryCard = ({entry}) => {
   return (
     <View style={styles.history_card}>
       <View style={styles.history_card_info}>
-        <Text style={styles.history_card_time}>
+        <Text allowFontScaling={false} style={styles.history_card_time}>
           {formatDateWithYearISOToString(entry.datetime)}
         </Text>
-        <Text style={styles.history_card_service}>
+        <Text allowFontScaling={false} style={styles.history_card_service}>
           {entry?.services.map(i => i.title).join(', ')}
         </Text>
       </View>
@@ -20,10 +23,12 @@ export const HistoryCard = ({entry}) => {
             style={styles.history_master_image}
             source={{uri: entry?.staff.avatar}}
           />
-          <Text style={styles.history_master_name}>{entry?.staff.name}</Text>
+          <Text allowFontScaling={false} style={styles.history_master_name}>
+            {entry?.staff.name}
+          </Text>
         </View>
       </View>
-      <Text style={styles.history_card_price_count}>
+      <Text allowFontScaling={false} style={styles.history_card_price_count}>
         {entry?.services.reduce((acc, el) => acc + el.cost, 0)} ₽
       </Text>
     </View>
@@ -77,7 +82,7 @@ const styles = StyleSheet.create({
   history_card_price_count: {
     right: 10,
     bottom: 2,
-    position: "absolute",
+    position: 'absolute',
     fontFamily: 'Inter-SemiBold',
     color: '#000000',
     fontSize: moderateScale(18),

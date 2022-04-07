@@ -16,7 +16,11 @@ import {dimisions} from 'utils/demisions';
 import {Loader} from 'utils/Loader';
 import {BottomNavigator} from 'utils/BottomNavigator';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllServicesTC, setAllCategories, setServices} from '../../redux/entryReducer';
+import {
+  getAllServicesTC,
+  setAllCategories,
+  setServices,
+} from '../../redux/entryReducer';
 
 export const ServicesList = ({navigation}) => {
   const dispatch = useDispatch();
@@ -26,20 +30,20 @@ export const ServicesList = ({navigation}) => {
   );
 
   useEffect(() => {
-    dispatch(getAllServicesTC(filial?.id, stylist?.id, date_and_time, services));
+    dispatch(
+      getAllServicesTC(filial?.id, stylist?.id, date_and_time, services),
+    );
     return () => {
-      dispatch(setAllCategories([]))
-    }
+      dispatch(setAllCategories([]));
+    };
   }, [services]);
-  const addServiceHandler = async (service) => {
-    navigation.goBack()
-    dispatch(setServices(service))
-  }
-   const addServiceToListHandler = async (service) => {
-    dispatch(setServices(service))
-  }
-
-
+  const addServiceHandler = async service => {
+    navigation.goBack();
+    dispatch(setServices(service));
+  };
+  const addServiceToListHandler = async service => {
+    dispatch(setServices(service));
+  };
 
   if (!allCategories.length) return <Loader />;
   return (
@@ -54,6 +58,7 @@ export const ServicesList = ({navigation}) => {
               style={{position: 'absolute', right: -0.0000000001}}
               onPress={() => navigation.navigate('Entry')}>
               <Text
+                allowFontScaling={false}
                 style={{
                   paddingRight: 16,
                   fontFamily: 'Inter-SemiBold',
@@ -111,6 +116,7 @@ export const ServicesList = ({navigation}) => {
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text
+                allowFontScaling={false}
                 style={{
                   fontFamily: 'Inter-Regular',
                   fontSize: moderateScale(13),
@@ -119,6 +125,7 @@ export const ServicesList = ({navigation}) => {
                 выбранные услуги
               </Text>
               <Text
+                allowFontScaling={false}
                 style={{
                   fontFamily: 'Inter-SemiBold',
                   fontSize: moderateScale(13),
@@ -130,8 +137,7 @@ export const ServicesList = ({navigation}) => {
                 {services.reduce((acc, el) => acc + el.price, 0)}) ₽
               </Text>
             </View>
-            {services
-              .map(el => (
+            {services.map(el => (
               <View
                 key={el.id}
                 style={{
@@ -154,6 +160,7 @@ export const ServicesList = ({navigation}) => {
                 }}>
                 <View style={{width: '95%'}}>
                   <Text
+                    allowFontScaling={false}
                     style={{
                       fontFamily: 'Inter-SemiBold',
                       fontSize: moderateScale(13),
@@ -162,6 +169,7 @@ export const ServicesList = ({navigation}) => {
                     {el.title}
                   </Text>
                   <Text
+                    allowFontScaling={false}
                     style={{
                       fontFamily: 'Inter-Medeium',
                       fontSize: moderateScale(13),
@@ -183,7 +191,7 @@ export const ServicesList = ({navigation}) => {
 
         {allCategories
           .filter(category => category.staffs.length)
-          .filter(category => category.title !== "Позвони мне")
+          .filter(category => category.title !== 'Позвони мне')
           .filter(category =>
             category.title.toLowerCase().includes(filter.toLowerCase()),
           )

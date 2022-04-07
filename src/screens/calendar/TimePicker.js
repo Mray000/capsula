@@ -78,6 +78,7 @@ export const TimePicker = ({
           </Shadow>
           <View>
             <Text
+              allowFontScaling={false}
               style={{
                 color: 'black',
                 textTransform: 'capitalize',
@@ -88,6 +89,7 @@ export const TimePicker = ({
               {dayTitles[moment(selected_date).weekday()]}
             </Text>
             <Text
+              allowFontScaling={false}
               style={{
                 color: '#B0B0B0',
                 fontFamily: 'Inter-Regular',
@@ -125,6 +127,7 @@ export const TimePicker = ({
             return (
               <View style={{marginTop: verticalScale(10)}}>
                 <Text
+                  allowFontScaling={false}
                   style={{
                     fontFamily: 'Inter-Regular',
                     fontSize: moderateScale(14),
@@ -161,6 +164,7 @@ export const TimePicker = ({
                           navigation.navigate(to ?? 'Entry');
                         }}>
                         <Text
+                          allowFontScaling={false}
                           style={{
                             color: 'black',
                             fontSize: moderateScale(15),

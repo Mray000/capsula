@@ -13,6 +13,7 @@ target 'capsula' do
   )
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
+  pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text', :modular_headers => true
 
   target 'capsulaTests' do
     inherit! :complete

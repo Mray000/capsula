@@ -17,6 +17,7 @@ import {
   setDateAndTime,
   setStylist,
 } from '../../redux/entryReducer';
+import {setAppColor} from 'redux/commonReducer';
 
 export const Entry = ({navigation}) => {
   const dispatch = useDispatch();
@@ -30,9 +31,13 @@ export const Entry = ({navigation}) => {
       SetIsLoad(true);
     }, 6000);
     return () => {
-      dispatch(clearAllCreateEntryFields())
-    }
+      dispatch(clearAllCreateEntryFields());
+    };
   }, []);
+
+  useEffect(() => {
+    if (is_load && sales) dispatch(setAppColor('white'));
+  }, [is_load, sales]);
 
   const createEntry = () => {
     navigation.navigate('CreateEntry');
@@ -78,6 +83,7 @@ export const Entry = ({navigation}) => {
   ];
   const disabled = !!form_elements.some(i => !i.value);
   if (!is_load || !sales) return <SplashVideo />;
+
   return (
     <>
       <ScrollView
@@ -90,6 +96,7 @@ export const Entry = ({navigation}) => {
               (dimisions.width * 0.94 - dimisions.width * 0.94 * 0.97) / 2,
           }}>
           <Text
+            allowFontScaling={false}
             style={{
               color: 'black',
               fontSize: moderateScale(19),
@@ -99,6 +106,7 @@ export const Entry = ({navigation}) => {
             Запись
           </Text>
           <Text
+            allowFontScaling={false}
             style={{
               fontFamily: 'Inter-Regular',
               color: '#B0B0B0',
@@ -108,7 +116,10 @@ export const Entry = ({navigation}) => {
             мы рекомендуем
           </Text>
         </View>
-        <SalesSwipper navigation={navigation} data={sales.sort((a, b) => Number(b.min_price) - Number(a.min_price))} />
+        <SalesSwipper
+          navigation={navigation}
+          data={sales.sort((a, b) => Number(b.min_price) - Number(a.min_price))}
+        />
         <View
           style={{
             paddingHorizontal:
@@ -117,6 +128,7 @@ export const Entry = ({navigation}) => {
             marginTop: 20,
           }}>
           <Text
+            allowFontScaling={false}
             style={{
               fontFamily: 'Inter-Regular',
               color: '#B0B0B0',
@@ -126,7 +138,11 @@ export const Entry = ({navigation}) => {
           </Text>
           <View style={{marginBottom: 20}}>
             {form_elements.map(el => (
-              <FormElement key={el.header_title} {...el} navigation={navigation} />
+              <FormElement
+                key={el.header_title}
+                {...el}
+                navigation={navigation}
+              />
             ))}
           </View>
           <Button
@@ -170,6 +186,7 @@ const FormElement = ({
         disabled={!is_active}
         onPress={() => navigation.navigate(navigate, {is_global: false})}>
         <Text
+          allowFontScaling={false}
           style={{
             color: is_active ? 'black' : '#B0B0B0',
             fontFamily: 'Inter-Medium',
@@ -195,6 +212,7 @@ const FormElement = ({
         }}>
         <View style={{width: '90%'}}>
           <Text
+            allowFontScaling={false}
             style={{
               color: '#BFBFBF',
               fontFamily: 'Inter-Regular',
@@ -203,6 +221,7 @@ const FormElement = ({
             {header_title}
           </Text>
           <Text
+            allowFontScaling={false}
             numberOfLines={2}
             style={{
               // width: '100%',

@@ -40,7 +40,7 @@ import {SuccessModal} from 'utils/SuccessModal';
 import Checked from 'assets/checked.svg';
 import {AGREEMENT_DOC} from '../../constants';
 import {ErrorModal} from 'utils/ErrorModal';
-import {CheckIsValidPhone} from "utils/Phone";
+import {CheckIsValidPhone, FormatPhone} from 'utils/Phone';
 
 export const CreateEntry = ({navigation}) => {
   const dispatch = useDispatch();
@@ -71,16 +71,16 @@ export const CreateEntry = ({navigation}) => {
   }, []);
 
   useEffect(() => {
-    dispatch(setAuthError(''))
-  },[phone])
+    dispatch(setAuthError(''));
+  }, [phone]);
 
   useEffect(() => {
     if (entryStatus === 'OK') {
       setSuccessCreateEntry(true);
     }
     return () => {
-      dispatch(setAuthError(""))
-    }
+      dispatch(setAuthError(''));
+    };
   }, [entryStatus]);
 
   const closeModal = () => {
@@ -105,6 +105,8 @@ export const CreateEntry = ({navigation}) => {
     longitudeDelta: 0.1,
   });
   const createEntryHandler = async () => {
+
+
     const appointment = {
       appointments: [
         {
@@ -137,13 +139,14 @@ export const CreateEntry = ({navigation}) => {
       ],
     };
     if (!CheckIsValidPhone(phone)) {
-     return dispatch(setAuthError('Введите верный номер'));
+      return dispatch(setAuthError('Введите верный номер'));
     }
 
     if (isAuth) {
       dispatch(createEntryTC(filial.id, appointment, data));
     } else {
-      await dispatch(getCode(phone));
+      let format_phone = FormatPhone(phone);
+      await dispatch(getCode(format_phone));
       if (!error || !entryError) {
         navigation.navigate('EntryCode', {
           filialId: filial.id,
@@ -212,6 +215,7 @@ export const CreateEntry = ({navigation}) => {
                     height: '100%',
                   }}>
                   <Text
+                    allowFontScaling={false}
                     style={{
                       textAlign: 'center',
                       color: isDetails ? 'black' : '#8F8F8F',
@@ -230,6 +234,7 @@ export const CreateEntry = ({navigation}) => {
                     height: '100%',
                   }}>
                   <Text
+                    allowFontScaling={false}
                     style={{
                       textAlign: 'center',
                       color: !isDetails ? 'black' : '#8F8F8F',
@@ -250,6 +255,7 @@ export const CreateEntry = ({navigation}) => {
                   value={name}
                 />
                 <InputWithLabel
+                  is_phone={true}
                   label={'телефон'}
                   onChange={setPhone}
                   placeholder={'телефон'}
@@ -289,6 +295,7 @@ export const CreateEntry = ({navigation}) => {
                   onPress={() => setOpenNotification(true)}
                   disabled={!is_active}>
                   <Text
+                    allowFontScaling={false}
                     style={{
                       color: is_active ? 'black' : '#B0B0B0',
                       fontFamily: 'Inter-Medium',
@@ -326,9 +333,12 @@ export const CreateEntry = ({navigation}) => {
                     }}>
                     {agreement ? <Checked /> : null}
                   </View>
-                  <Text style={styles.confirm_agreement_text}>
+                  <Text
+                    allowFontScaling={false}
+                    style={styles.confirm_agreement_text}>
                     Нажимая кнопку “Записаться”, Вы соглашаетесь с
                     <Text
+                      allowFontScaling={false}
                       onPress={() => Linking.openURL(AGREEMENT_DOC)}
                       style={styles.confirm_agreement_text_link}>
                       {' '}
@@ -338,21 +348,25 @@ export const CreateEntry = ({navigation}) => {
                 </TouchableOpacity>
               </View>
             ) : (
-              <View style={{marginTop: 15,}}>
+              <View style={{marginTop: 15}}>
                 <Shadow viewStyle={{width: '100%', marginBottom: 16}}>
                   <TouchableOpacity style={styles.card_container}>
                     <View style={styles.card}>
                       <View>
                         <View style={styles.card_info_time}>
                           <DotIcon fill={'black'} />
-                          <Text style={styles.card_info_time_text}>
+                          <Text
+                            allowFontScaling={false}
+                            style={styles.card_info_time_text}>
                             {`${moment(date_and_time.date).format('DD MMMM')} ${
                               date_and_time.time
                             }`}
                           </Text>
                         </View>
                         <View style={styles.card_info_service}>
-                          <Text style={styles.card_service_text}>
+                          <Text
+                            allowFontScaling={false}
+                            style={styles.card_service_text}>
                             {services.map(i => i.title)}
                           </Text>
                         </View>
@@ -363,12 +377,16 @@ export const CreateEntry = ({navigation}) => {
                             style={styles.master_image}
                             source={{uri: stylist?.avatar}}
                           />
-                          <Text style={styles.master_name}>
+                          <Text
+                            allowFontScaling={false}
+                            style={styles.master_name}>
                             {stylist?.name}
                           </Text>
                         </View>
                       </View>
-                      <Text style={styles.card_price_count}>
+                      <Text
+                        allowFontScaling={false}
+                        style={styles.card_price_count}>
                         {services?.reduce(function (sum, elem) {
                           return sum + elem.price;
                         }, 0)}{' '}
@@ -378,9 +396,13 @@ export const CreateEntry = ({navigation}) => {
                   </TouchableOpacity>
                 </Shadow>
                 <View>
-                  <Text style={styles.sub_title}>адрес филиала</Text>
+                  <Text allowFontScaling={false} style={styles.sub_title}>
+                    адрес филиала
+                  </Text>
                   <View style={styles.address_details}>
-                    <Text style={styles.address_text}>{filial?.address}</Text>
+                    <Text allowFontScaling={false} style={styles.address_text}>
+                      {filial?.address}
+                    </Text>
                     <View style={styles.map_container}>
                       <MapView
                         region={region}
@@ -418,16 +440,26 @@ export const CreateEntry = ({navigation}) => {
             onPressClose={closeModal}
             underButtonTitle={'Ваши записи находятся в разделе «Профиль»'}
             open={successCreateEntry}>
-            <Text style={styles.success_edit_entry_text}>
+            <Text
+              allowFontScaling={false}
+              style={styles.success_edit_entry_text}>
               Мы создали вашу запись
             </Text>
-            <Text style={styles.success_edit_entry_sub_text}>Ожидаем вас</Text>
-            <Text style={styles.success_edit_entry_date}>
+            <Text
+              allowFontScaling={false}
+              style={styles.success_edit_entry_sub_text}>
+              Ожидаем вас
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={styles.success_edit_entry_date}>
               {moment(date_and_time?.date).format('DD MMMM') +
                 ' в ' +
                 date_and_time?.time}
             </Text>
-            <Text style={styles.success_edit_entry_date}>
+            <Text
+              allowFontScaling={false}
+              style={styles.success_edit_entry_date}>
               по адресу: {filial?.address}
             </Text>
           </SuccessModal>
@@ -438,6 +470,7 @@ export const CreateEntry = ({navigation}) => {
           />
           {error ? (
             <Text
+              allowFontScaling={false}
               style={{
                 fontSize: moderateScale(14),
                 color: '#E82E2E',
@@ -486,7 +519,9 @@ export const Notifications = ({onPressClose, open, selectValue}) => {
           <TouchableOpacity
             onPress={() => selectValue(item.value)}
             style={styles.notification_item}>
-            <Text style={styles.notification_text}>{item.title}</Text>
+            <Text allowFontScaling={false} style={styles.notification_text}>
+              {item.title}
+            </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>

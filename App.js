@@ -27,13 +27,14 @@ import {EntryCode} from './src/screens/entry/entryCode';
 import {CurrentSale} from './src/screens/entry/currentSale';
 import {NoInternetModal} from 'utils/NoInternetModal';
 import {useNetInfo} from '@react-native-community/netinfo';
-import {getAllFilialsTC} from "./src/redux/filialsReducer";
+import {getAllFilialsTC} from './src/redux/filialsReducer';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
   const dispatch = useDispatch();
   const netInfo = useNetInfo();
   const {id} = useSelector(state => state?.auth);
+  const {app_color} = useSelector(state => state?.common);
   useEffect(() => {
     if (id) dispatch(getProfileInfoTC(id));
   }, [id]);
@@ -45,51 +46,53 @@ const App = () => {
   }, []);
 
   return (
-      <>
-        <SafeAreaView style={{flex: 1}}>
-          <StatusBar barStyle="light-content" backgroundColor="#000000" />
+    <>
+      <SafeAreaView style={{flex: 1, backgroundColor: app_color}}>
+        <StatusBar
+          backgroundColor={app_color}
+          barStyle={app_color == 'black' ? 'light-content' : 'dark-content'}
+        />
+        <NavigationContainer>
+          <NoInternetModal
+            open={netInfo.details ? !netInfo?.isInternetReachable : false}
+          />
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+              contentStyle: {backgroundColor: '#FCFCFC'},
+            }}
+            initialRouteName="Entry">
+            <Stack.Group>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Code" component={Code} />
+              <Stack.Screen name="PreLogin" component={PreLogin} />
+            </Stack.Group>
+            <Stack.Group>
+              <Stack.Screen name="Entry" component={Entry} />
+              <Stack.Screen name="CreateEntry" component={CreateEntry} />
+              <Stack.Screen name="CurrentSale" component={CurrentSale} />
+              <Stack.Screen name="EntryCode" component={EntryCode} />
 
-          <NavigationContainer>
-            <NoInternetModal
-                open={netInfo.details ? !netInfo?.isInternetReachable : false}
-            />
-            <Stack.Navigator
-                screenOptions={{
-                  headerShown: false,
-                  contentStyle: {backgroundColor: '#FCFCFC'},
-                }}
-                initialRouteName="Entry">
-              <Stack.Group>
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Code" component={Code} />
-                <Stack.Screen name="PreLogin" component={PreLogin} />
-              </Stack.Group>
-              <Stack.Group>
-                <Stack.Screen name="Entry" component={Entry} />
-                <Stack.Screen name="CreateEntry" component={CreateEntry} />
-                <Stack.Screen name="CurrentSale" component={CurrentSale} />
-                <Stack.Screen name="EntryCode" component={EntryCode} />
+              <Stack.Screen name="Filials" component={Filials} />
 
-                <Stack.Screen name="Filials" component={Filials} />
+              <Stack.Screen name="ServicesList" component={ServicesList} />
+              <Stack.Screen name="StylistsList" component={StylistsList} />
+              <Stack.Screen name="StylistProfile" component={StylistProfile} />
 
-                <Stack.Screen name="ServicesList" component={ServicesList} />
-                <Stack.Screen name="StylistsList" component={StylistsList} />
-                <Stack.Screen name="StylistProfile" component={StylistProfile} />
+              <Stack.Screen name="Calendar" component={Calendar} />
 
-                <Stack.Screen name="Calendar" component={Calendar} />
+              <Stack.Screen name="Info" component={Info} />
 
-                <Stack.Screen name="Info" component={Info} />
-
-                <Stack.Screen name="Profile" component={Profile} />
-                <Stack.Screen name="Settings" component={Settings} />
-                <Stack.Screen name="Scores" component={Scores} />
-                <Stack.Screen name="EntryDetails" component={EntryDetails} />
-                <Stack.Screen name="EditEntry" component={EditEntry} />
-              </Stack.Group>
-            </Stack.Navigator>
-          </NavigationContainer>
-        </SafeAreaView>
-      </>
+              <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="Settings" component={Settings} />
+              <Stack.Screen name="Scores" component={Scores} />
+              <Stack.Screen name="EntryDetails" component={EntryDetails} />
+              <Stack.Screen name="EditEntry" component={EditEntry} />
+            </Stack.Group>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </>
   );
 };
 

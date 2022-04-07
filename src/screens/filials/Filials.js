@@ -30,7 +30,7 @@ export const Filials = ({navigation, route}) => {
   const dispatch = useDispatch();
 
   const is_global = route?.params?.is_global;
-  const {allFilials,initialFilials } = useSelector(state => state?.filials);
+  const {allFilials, initialFilials} = useSelector(state => state?.filials);
   const services = useSelector(state => state?.entry?.services);
   const loading = useSelector(state => state?.common?.loading);
   const [selected_filial, SetSelectedFilial] = useState(null);
@@ -69,7 +69,11 @@ export const Filials = ({navigation, route}) => {
     }
   };
 
-  const filials = is_global ? initialFilials : services?.length ? allFilials : initialFilials
+  const filials = is_global
+    ? initialFilials
+    : services?.length
+    ? allFilials
+    : initialFilials;
   if (!filials?.length || loading) return <Loader />;
   return (
     <>
@@ -108,6 +112,7 @@ export const Filials = ({navigation, route}) => {
                   height: '100%',
                 }}>
                 <Text
+                  allowFontScaling={false}
                   style={{
                     textAlign: 'center',
                     color: is_map_active ? 'black' : '#8F8F8F',
@@ -126,6 +131,7 @@ export const Filials = ({navigation, route}) => {
                   height: '100%',
                 }}>
                 <Text
+                  allowFontScaling={false}
                   style={{
                     textAlign: 'center',
                     color: !is_map_active ? 'black' : '#8F8F8F',
@@ -223,6 +229,7 @@ export const Filials = ({navigation, route}) => {
                         borderTopLeftRadius: 20,
                       }}>
                       <Text
+                        allowFontScaling={false}
                         style={{
                           color: 'black',
                           fontFamily: 'Inter-Medium',
@@ -264,6 +271,7 @@ export const Filials = ({navigation, route}) => {
                         borderBottomLeftRadius: 20,
                       }}>
                       <Text
+                        allowFontScaling={false}
                         style={{
                           color: '#B3B3B3',
                           fontFamily: 'Inter-Regular',
@@ -272,6 +280,7 @@ export const Filials = ({navigation, route}) => {
                         }}>
                         Есть запись:&nbsp;
                         <Text
+                          allowFontScaling={false}
                           style={{
                             fontFamily: 'Inter-Medium',
                             fontSize: moderateScale(14),
@@ -308,6 +317,7 @@ export const Filials = ({navigation, route}) => {
                   justifyContent: 'space-between',
                 }}>
                 <Text
+                  allowFontScaling={false}
                   style={{
                     color: 'black',
                     width: '45%',
@@ -327,10 +337,12 @@ export const Filials = ({navigation, route}) => {
                   }}
                 />
               </View>
-              <View  style={{
-                marginBottom: verticalScale(5),
-              }}>
+              <View
+                style={{
+                  marginBottom: verticalScale(5),
+                }}>
                 <Text
+                  allowFontScaling={false}
                   style={{
                     color: '#B3B3B3',
                     fontFamily: 'Inter-Regular',
@@ -339,6 +351,7 @@ export const Filials = ({navigation, route}) => {
                   Есть запись:
                 </Text>
                 <Text
+                  allowFontScaling={false}
                   style={{
                     fontFamily: 'Inter-Medium',
                     fontSize: moderateScale(15),
@@ -346,6 +359,7 @@ export const Filials = ({navigation, route}) => {
                   }}>
                   {moment(selected_filial?.datetime).format('D MMMM HH:mm')}
                   <Text
+                    allowFontScaling={false}
                     style={{
                       fontFamily: 'Inter-Regular',
                       fontSize: moderateScale(14),

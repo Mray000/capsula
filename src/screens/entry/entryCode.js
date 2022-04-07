@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import X from 'assets/x.svg';
 import {Button} from 'utils/Button';
@@ -7,12 +14,12 @@ import {moderateScale, scale, verticalScale} from 'utils/Normalize';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCode, setAuthError, setAuthStatus} from '../../redux/authReducer';
 import {createEntryTC, setEntryStatus} from '../../redux/entryReducer';
-import VerifyCode from "utils/code/verifyCode";
+import VerifyCode from 'utils/code/verifyCode';
 
 export const EntryCode = ({navigation, route}) => {
   const dispatch = useDispatch();
 
-  const [code, setCode] = useState("")
+  const [code, setCode] = useState('');
 
   const loading = useSelector(state => state?.common.loading);
   const {error} = useSelector(state => state?.auth);
@@ -28,32 +35,29 @@ export const EntryCode = ({navigation, route}) => {
 
   useEffect(() => {
     return () => {
-      setCode("")
+      setCode('');
       dispatch(setEntryStatus(null));
       dispatch(setAuthStatus(null));
       dispatch(setAuthError(null));
-    }
-  },[])
+    };
+  }, []);
 
   const appointment = route?.params?.appointment;
   const data = route?.params?.data;
   const filialId = route?.params?.filialId;
 
-  const onInputCompleted = async (e) => {
-    await dispatch(
-        createEntryTC(filialId, appointment, {...data, code: e}),
-    )
-  }
-  const onInputChangeText = async (e) => {
+  const onInputCompleted = async e => {
+    await dispatch(createEntryTC(filialId, appointment, {...data, code: e}));
+  };
+  const onInputChangeText = async e => {
     dispatch(setAuthError(''));
-    setCode(e)
-  }
+    setCode(e);
+  };
   const repeatGetCode = async () => {
     await dispatch(getCode(data.phone));
   };
 
-  const is_button_disabled =
-      loading || code.length !== 4
+  const is_button_disabled = loading || code.length !== 4;
 
   return (
     <KeyboardAvoidingView
@@ -73,38 +77,46 @@ export const EntryCode = ({navigation, route}) => {
           <TouchableOpacity
             onPress={() => {
               dispatch(setAuthError(null));
-              navigation.navigate('Entry')
+              navigation.navigate('Entry');
             }}
             style={styles.close_button}>
             <X width={13} height={13} fill="#45413E" />
           </TouchableOpacity>
         </Shadow>
-        <Text style={styles.title}>Введите код из смс-сообщения</Text>
+        <Text allowFontScaling={false} style={styles.title}>
+          Введите код из смс-сообщения
+        </Text>
         <View style={styles.sub_title}>
           <VerifyCode
-              onInputChangeText={onInputChangeText}
-              onInputCompleted={onInputCompleted}
-              autoFocus
-              containerBackgroundColor="transparent"
-              verifyCodeLength={4}
-              containerPaddingHorizontal={scale(25)}
-              codeViewBorderColor={error ? "red" : "transparent"}
-              codeViewBackgroundColor={"#E6E6E6"}
-              focusedCodeViewBorderColor="#000000"
-              coverColor={"#000000"}
-              codeViewBorderRadius={15}
-              codeFontSize={28}
-              codeViewBorderWidth={1}
+            onInputChangeText={onInputChangeText}
+            onInputCompleted={onInputCompleted}
+            autoFocus
+            containerBackgroundColor="transparent"
+            verifyCodeLength={4}
+            containerPaddingHorizontal={scale(25)}
+            codeViewBorderColor={error ? 'red' : 'transparent'}
+            codeViewBackgroundColor={'#E6E6E6'}
+            focusedCodeViewBorderColor="#000000"
+            coverColor={'#000000'}
+            codeViewBorderRadius={15}
+            codeFontSize={28}
+            codeViewBorderWidth={1}
           />
         </View>
-        {error ? <Text style={styles.error}>{error}</Text> : null}
+        {error ? (
+          <Text allowFontScaling={false} style={styles.error}>
+            {error}
+          </Text>
+        ) : null}
         <Button
           text={'Далее'}
           onPress={() => onInputCompleted()}
           disabled={is_button_disabled}
         />
         <TouchableOpacity style={{marginTop: 15}} onPress={repeatGetCode}>
-          <Text style={styles.retry_sub_title}>Отправить код повторно</Text>
+          <Text allowFontScaling={false} style={styles.retry_sub_title}>
+            Отправить код повторно
+          </Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

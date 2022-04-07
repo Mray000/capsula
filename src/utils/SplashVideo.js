@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StatusBar} from 'react-native';
 
 import Splash from 'assets/splash.mp4';
 import Video from 'react-native-video';

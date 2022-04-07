@@ -24,7 +24,7 @@ export const ErrorModal = ({
           containerViewStyle={{
             position: 'absolute',
             right: scale(10),
-            height:45,
+            height: 45,
             width: 45,
             top: verticalScale(40),
           }}>
@@ -34,13 +34,17 @@ export const ErrorModal = ({
         </Shadow>
         <View style={styles.modal_content}>
           <ErrorIcon fill={'black'} width={100} height={100} />
-          <Text style={styles.bold_text}>
+          <Text allowFontScaling={false} style={styles.bold_text}>
             {'Кажется, что-то пошло не так :('}
           </Text>
           {errorMessage ? (
-            <Text style={styles.under_button_text}>{errorMessage}</Text>
+            <Text allowFontScaling={false} style={styles.under_button_text}>
+              {errorMessage}
+            </Text>
           ) : (
-            <Text style={styles.under_button_text}>Ошибка</Text>
+            <Text allowFontScaling={false} style={styles.under_button_text}>
+              Ошибка
+            </Text>
           )}
         </View>
 

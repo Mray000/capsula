@@ -17,12 +17,11 @@ import {useIsFocused} from '@react-navigation/core';
 import {authMe} from '../../redux/authReducer';
 import moment from 'moment';
 
-
 export const Profile = ({navigation}) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const { id} = useSelector(state => state?.auth);
+  const {id} = useSelector(state => state?.auth);
   const {profile, loyality_cards, allEntries} = useSelector(
     state => state?.profile,
   );
@@ -51,7 +50,9 @@ export const Profile = ({navigation}) => {
                 height={22}
               />
             </View>
-            <Text style={styles.user_name}>{profile.name}</Text>
+            <Text allowFontScaling={false} style={styles.user_name}>
+              {profile.name}
+            </Text>
           </View>
           {profile?.visits === 0 && !allEntries?.length ? (
             <EmptyScreen navigation={navigation} />
@@ -61,7 +62,9 @@ export const Profile = ({navigation}) => {
                 {allEntries?.filter(i => beforeNowDates(i.datetime))?.length >
                 0 ? (
                   <>
-                    <Text style={styles.content_subtitle}>
+                    <Text
+                      allowFontScaling={false}
+                      style={styles.content_subtitle}>
                       мои будущие записи
                     </Text>
                     {allEntries
@@ -82,7 +85,11 @@ export const Profile = ({navigation}) => {
               <View style={styles.content_container}>
                 {loyality_cards && (
                   <>
-                    <Text style={styles.content_subtitle}>доступные баллы</Text>
+                    <Text
+                      allowFontScaling={false}
+                      style={styles.content_subtitle}>
+                      доступные баллы
+                    </Text>
                     <ScoreCard
                       count={loyality_cards.balance}
                       card_number={loyality_cards.number}
@@ -92,9 +99,14 @@ export const Profile = ({navigation}) => {
                   </>
                 )}
               </View>
-              {allEntries?.filter(i => afterNowDates(i.datetime)).length > 0 && (
+              {allEntries?.filter(i => afterNowDates(i.datetime)).length >
+                0 && (
                 <View style={styles.content_container}>
-                  <Text style={styles.content_subtitle}>история посещений</Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={styles.content_subtitle}>
+                    история посещений
+                  </Text>
                   {allEntries
                     .sort((a, b) => moment(b.datetime) - moment(a.datetime))
                     .filter(i => afterNowDates(i.datetime))

@@ -33,7 +33,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
   } = stylist;
   const [is_load, SetIsLoad] = useState(true);
   useEffect(() => {
-    if(is_load)
+    if (is_load)
       stylistsAPI
         .getStylistData(
           stylist?.company?.id,
@@ -95,6 +95,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
             </TouchableOpacity>
             <View style={{width: '78%'}}>
               <Text
+                allowFontScaling={false}
                 numberOfLines={2}
                 ellipsizeMode="tail"
                 style={{
@@ -106,6 +107,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
                 {specialization}
               </Text>
               <Text
+                allowFontScaling={false}
                 numberOfLines={1}
                 ellipsizeMode="tail"
                 style={{
@@ -129,6 +131,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
                 justifyContent: 'center',
               }}>
               <Text
+                allowFontScaling={false}
                 style={{
                   fontFamily: 'Inter-SemiBold',
                   marginRight: 3,
@@ -140,6 +143,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
               <Star fill="black" />
             </View>
             <Text
+              allowFontScaling={false}
               style={{
                 fontFamily: 'Inter-Regular',
                 fontSize: moderateScale(12),
@@ -163,7 +167,11 @@ export const Stylist = ({stylist, navigation, is_global}) => {
                     justifyContent: 'center',
                     borderRadius: 17,
                   }}>
-                  <Text style={{color: 'black', fontWeight: '700'}}>i</Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={{color: 'black', fontWeight: '700'}}>
+                    i
+                  </Text>
                 </View>
               </Shadow>
             </TouchableOpacity>
@@ -174,6 +182,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
             times?.length ? (
               <View>
                 <Text
+                  allowFontScaling={false}
                   style={{
                     fontFamily: 'Inter-Regular',
                     fontSize: moderateScale(12),
@@ -206,6 +215,7 @@ export const Stylist = ({stylist, navigation, is_global}) => {
                             navigation.navigate('Entry');
                           }}>
                           <Text
+                            allowFontScaling={false}
                             style={{
                               color: 'black',
                               fontSize: moderateScale(14),

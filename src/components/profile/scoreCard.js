@@ -19,13 +19,18 @@ export const ScoreCard = ({navigation, id, card_number, count}) => {
       <View style={styles.score_card}>
         <View style={styles.score_card_image_container}>
           <Image style={styles.score_image} source={ScoreCardImg} />
-          <Text style={styles.score_card_number}>
+          <Text allowFontScaling={false} style={styles.score_card_number}>
             {addSpaceToScore(card_number)}
           </Text>
         </View>
         <View>
-          <Text style={styles.score_title}>Баллов на счету:</Text>
-          <Text style={styles.score_count}> {count} ₽</Text>
+          <Text allowFontScaling={false} style={styles.score_title}>
+            Баллов на счету:
+          </Text>
+          <Text allowFontScaling={false} style={styles.score_count}>
+            {' '}
+            {count} ₽
+          </Text>
         </View>
       </View>
       <ArrowRight fill={onPress ? 'black' : '#E8E8E8'} />

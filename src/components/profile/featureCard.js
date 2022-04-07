@@ -25,12 +25,12 @@ export const FeatureCard = ({navigation, entry}) => {
           <View>
             <View style={styles.card_info_time}>
               <DotIcon fill={'black'} />
-              <Text style={styles.card_info_time_text}>
+              <Text allowFontScaling={false} style={styles.card_info_time_text}>
                 {formatDateISOToString(entry.datetime)}
               </Text>
             </View>
             <View style={styles.card_info_service}>
-              <Text style={styles.card_service_text}>
+              <Text allowFontScaling={false} style={styles.card_service_text}>
                 {entry?.services.map(i => i.title).join(', ')}
               </Text>
               <ArrowRight fill={onPress ? 'black' : '#E8E8E8'} />
@@ -42,13 +42,15 @@ export const FeatureCard = ({navigation, entry}) => {
                 style={styles.master_image}
                 source={{uri: entry?.staff.avatar}}
               />
-              <Text style={styles.master_name}>{entry?.staff.name}</Text>
+              <Text allowFontScaling={false} style={styles.master_name}>
+                {entry?.staff.name}
+              </Text>
             </View>
           </View>
         </View>
-        <Text style={styles.card_price_count}>
-            {entry?.services.reduce((acc, el) => acc + el.cost, 0)} ₽
-          </Text>
+        <Text allowFontScaling={false} style={styles.card_price_count}>
+          {entry?.services.reduce((acc, el) => acc + el.cost, 0)} ₽
+        </Text>
       </TouchableOpacity>
     </Shadow>
   );
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
   card_price_count: {
     right: 10,
     bottom: 2,
-    position: "absolute",
+    position: 'absolute',
     fontFamily: 'Inter-SemiBold',
     color: '#000000',
     fontSize: moderateScale(18),

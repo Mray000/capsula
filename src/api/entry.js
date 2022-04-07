@@ -7,7 +7,7 @@ export const entryAPI = {
   },
   createEntry(company_id, data, token) {
     return instance.post(`book_record/${company_id}`, data, {
-      headers: {
+      headers: {  
         'Content-Type': 'application/json',
         Authorization: token ? `Bearer ${COMPANY_TOKEN}, User ${token}` :`Bearer ${COMPANY_TOKEN}`,
       },

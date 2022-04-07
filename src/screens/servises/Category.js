@@ -34,6 +34,7 @@ export const Category = ({
         }}
         onPress={() => SetIsOpen(!is_open)}>
         <Text
+          allowFontScaling={false}
           style={{
             color: is_open ? 'black' : 'black',
             fontFamily: 'Inter-Medium',
@@ -52,21 +53,23 @@ export const Category = ({
 
       {is_open ? (
         <View style={{marginTop: 5}}>
-          {staffs.filter(i => i.price_max !== 0 || i.price_min !== 0).map(item => (
-            <Service
+          {staffs
+            .filter(i => i.price_max !== 0 || i.price_min !== 0)
+            .map(item => (
+              <Service
                 item={item}
-              key={item.id}
-              id={item.id}
-              image={item.image}
-              title={item.title}
-              comment={item.comment}
-              price_min={item.price_min}
-              price_max={item.price_max}
-              is_active={services.find(el => el.id === item.id)}
-              addServiceHandler={addServiceHandler}
-              addServiceToListHandler={addServiceToListHandler}
-            />
-          ))}
+                key={item.id}
+                id={item.id}
+                image={item.image}
+                title={item.title}
+                comment={item.comment}
+                price_min={item.price_min}
+                price_max={item.price_max}
+                is_active={services.find(el => el.id === item.id)}
+                addServiceHandler={addServiceHandler}
+                addServiceToListHandler={addServiceToListHandler}
+              />
+            ))}
         </View>
       ) : null}
     </View>

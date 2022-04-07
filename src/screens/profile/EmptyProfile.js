@@ -1,28 +1,33 @@
-import {StyleSheet, Text, View} from "react-native";
-import NoEntiesIcon from "assets/noEntriese.svg";
-import {Button} from "utils/Button";
-import {dimisions} from "utils/demisions";
-import React from "react";
-import {moderateScale} from "utils/Normalize";
+import {StyleSheet, Text, View} from 'react-native';
+import NoEntiesIcon from 'assets/noEntriese.svg';
+import {Button} from 'utils/Button';
+import {dimisions} from 'utils/demisions';
+import React from 'react';
+import {moderateScale} from 'utils/Normalize';
 
 export const EmptyScreen = ({navigation}) => {
   return (
     <View style={styles.emptyProfileScreenContainer}>
       <View style={styles.emptyProfileScreen}>
         <NoEntiesIcon style={styles.emptyScreenIcon} />
-        <Text style={styles.emptyText}>Вы еще не были у нас :(</Text>
-        <Button height={dimisions.height / 12} onPress={() => navigation.navigate("Entry")} text="Создать запись" />
+        <Text allowFontScaling={false} style={styles.emptyText}>
+          Вы еще не были у нас :(
+        </Text>
+        <Button
+          height={dimisions.height / 12}
+          onPress={() => navigation.navigate('Entry')}
+          text="Создать запись"
+        />
       </View>
     </View>
   );
 };
 
-
 const styles = StyleSheet.create({
   emptyProfileScreenContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex:1,
+    flex: 1,
   },
   emptyScreenIcon: {
     marginBottom: 16,

@@ -27,7 +27,7 @@ import {formatDateISOToString} from 'utils/dateUtils';
 import {Loader} from 'utils/Loader';
 import location from 'assets/location.png';
 import {getCommentsTC} from '../../redux/stylistReducer';
-import {removeEntryTC} from "../../redux/profileReducer";
+import {removeEntryTC} from '../../redux/profileReducer';
 
 export const EntryDetails = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -44,7 +44,6 @@ export const EntryDetails = ({navigation, route}) => {
       dispatch(getEntryTC(company_id, entryId));
     }
     if (entryStatus === 'OK') {
-
       dispatch(setEntryStatus(null));
     }
     return () => {
@@ -62,7 +61,7 @@ export const EntryDetails = ({navigation, route}) => {
   };
   const removeEntryHandler = async () => {
     await dispatch(removeEntryTC(entryId));
-    setShowConfirmRemoveEntry(false)
+    setShowConfirmRemoveEntry(false);
     setSuccessRemoveEntry(true);
   };
 
@@ -84,10 +83,10 @@ export const EntryDetails = ({navigation, route}) => {
             title={formatDateISOToString(entry?.datetime)}
           />
           <View style={styles.entry_details}>
-            <Text style={styles.entry_service}>
+            <Text allowFontScaling={false} style={styles.entry_service}>
               {entry?.services?.map(i => i.title)}
             </Text>
-            <Text style={styles.entry_price}>
+            <Text allowFontScaling={false} style={styles.entry_price}>
               {entry?.services?.reduce(function (sum, elem) {
                 return sum + elem.cost;
               }, 0)}{' '}
@@ -96,7 +95,9 @@ export const EntryDetails = ({navigation, route}) => {
           </View>
 
           <View>
-            <Text style={styles.sub_title}>{entry?.staff?.specialization}</Text>
+            <Text allowFontScaling={false} style={styles.sub_title}>
+              {entry?.staff?.specialization}
+            </Text>
             <Shadow viewStyle={{width: '100%', marginBottom: 16}}>
               <TouchableOpacity
                 onPressIn={() => setOnPress(true)}
@@ -118,26 +119,36 @@ export const EntryDetails = ({navigation, route}) => {
                   />
                   <View>
                     <View style={styles.stilist_raiting}>
-                      <Text style={styles.stilist_raiting_text}>
+                      <Text
+                        allowFontScaling={false}
+                        style={styles.stilist_raiting_text}>
                         {entry?.staff?.rating}
                       </Text>
                       <StarIcon fill={'black'} />
-                      <Text style={styles.stilist_reviews}>{comments.length ?? 0} отзывов</Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={styles.stilist_reviews}>
+                        {comments.length ?? 0} отзывов
+                      </Text>
                     </View>
-                    <Text style={styles.stilist_name}>
+                    <Text allowFontScaling={false} style={styles.stilist_name}>
                       {entry?.staff?.name}
                     </Text>
                   </View>
                 </View>
-                <ArrowRight  fill={onPress ? 'black' : '#E8E8E8'} />
+                <ArrowRight fill={onPress ? 'black' : '#E8E8E8'} />
               </TouchableOpacity>
             </Shadow>
           </View>
 
           <View>
-            <Text style={styles.sub_title}>адрес филиала</Text>
+            <Text allowFontScaling={false} style={styles.sub_title}>
+              адрес филиала
+            </Text>
             <View style={styles.address_details}>
-              <Text style={styles.address_text}>{filialDetails?.address}</Text>
+              <Text allowFontScaling={false} style={styles.address_text}>
+                {filialDetails?.address}
+              </Text>
               <View style={styles.map_container}>
                 <MapView
                   region={{
@@ -176,10 +187,14 @@ export const EntryDetails = ({navigation, route}) => {
                 navigation.navigate('EditEntry', {entry, filialDetails})
               }
               style={styles.edit_entry}>
-              <Text style={styles.edit_entry_title}>Перенести запись</Text>
+              <Text allowFontScaling={false} style={styles.edit_entry_title}>
+                Перенести запись
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={showConfirm} style={styles.remove_entry}>
-              <Text style={styles.remove_entry_title}>Отменить запись</Text>
+              <Text allowFontScaling={false} style={styles.remove_entry_title}>
+                Отменить запись
+              </Text>
             </TouchableOpacity>
             <ConfirmModal
               cancelText={'Нет'}
@@ -193,10 +208,14 @@ export const EntryDetails = ({navigation, route}) => {
               open={showConfirmRemoveEntry}
             />
             <SuccessModal onPressClose={closeModal} open={successRemoveEntry}>
-              <Text style={styles.success_remove_entry_text}>
+              <Text
+                allowFontScaling={false}
+                style={styles.success_remove_entry_text}>
                 Мы отменили вашу запись
               </Text>
-              <Text style={styles.success_remove_entry_sub_text}>
+              <Text
+                allowFontScaling={false}
+                style={styles.success_remove_entry_sub_text}>
                 Создайте новую запись в главном меню
               </Text>
             </SuccessModal>

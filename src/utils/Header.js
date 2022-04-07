@@ -25,6 +25,7 @@ export const Header = ({title, to, navigation, child, onBack}) => {
         <ArrowLeft fill="black" />
       </TouchableOpacity>
       <Text
+        allowFontScaling={false}
         style={{
           color: 'black',
           fontFamily: 'Inter-SemiBold',

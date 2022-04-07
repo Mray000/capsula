@@ -8,11 +8,11 @@ import {Button} from 'utils/Button';
 import {dimisions} from 'utils/demisions';
 import {useNavigation} from '@react-navigation/core';
 import NetInfo from '@react-native-community/netinfo';
-import {clearAllCreateEntryFields, getSalesTC} from "../redux/entryReducer";
+import {clearAllCreateEntryFields, getSalesTC} from '../redux/entryReducer';
 
 export const NoInternetModal = ({open}) => {
   const navigation = useNavigation();
-  const [init, setInit] = useState(false)
+  const [init, setInit] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const NoInternetModal = ({open}) => {
     NetInfo.fetch().then(state => {
       setTimeout(function () {
         if (state.isConnected) {
-          navigation.navigate('Entry',{is_global: true});
+          navigation.navigate('Entry', {is_global: true});
         } else {
           setLoading(false);
         }
@@ -58,7 +58,9 @@ export const NoInternetModal = ({open}) => {
         </Shadow>
         <View style={styles.modal_content}>
           <NoInternet />
-          <Text style={{color: 'black'}}>Нет сети :(</Text>
+          <Text allowFontScaling={false} style={{color: 'black'}}>
+            Нет сети :(
+          </Text>
         </View>
         <Button onPress={onPressClose} disabled={loading} text={'Ok'} />
       </View>

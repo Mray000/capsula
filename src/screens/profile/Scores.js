@@ -25,31 +25,35 @@ export const Scores = ({navigation}) => {
         <Header onBack={navigation.goBack} title={'Мои баллы'} />
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <>
-            <Text style={styles.score_text}>
+            <Text allowFontScaling={false} style={styles.score_text}>
               Чтобы списать баллы, покажите свою карту администратору салона при
               посещении. Скидка будет применена при оплате визита. Правила
               списания баллов указаны ниже
             </Text>
             <View style={styles.score_card}>
               <Image style={styles.score_image} source={ScoreCard} />
-              <Text style={styles.number_card}>{phone}</Text>
+              <Text allowFontScaling={false} style={styles.number_card}>
+                {phone}
+              </Text>
               <View style={styles.score_card_title_container}>
-                <Text style={styles.score_card_title}>накоплено: </Text>
-                <Text style={styles.score_card_count}>
+                <Text allowFontScaling={false} style={styles.score_card_title}>
+                  накоплено:{' '}
+                </Text>
+                <Text allowFontScaling={false} style={styles.score_card_count}>
                   {loyality_cards?.balance ?? 0} ₽ баллов
                 </Text>
               </View>
             </View>
-            <Text style={styles.score_text}>
+            <Text allowFontScaling={false} style={styles.score_text}>
               Первое начисление бонусных баллов происходит в течение суток с
               момента авторизации. Если ваши бонусы не появились, позвоните на
               номер +7 812 566 63 01. Мы поможем вам
             </Text>
-            <Text style={styles.score_text}>
-              Начисление:
-              С любой записи через приложение CAPSULA вам будет начислен кэшбек 5% со всех услуг и товаров после оплаты визита
+            <Text allowFontScaling={false} style={styles.score_text}>
+              Начисление: С любой записи через приложение CAPSULA вам будет
+              начислен кэшбек 5% со всех услуг и товаров после оплаты визита
             </Text>
-            <Text style={styles.score_text}>
+            <Text allowFontScaling={false} style={styles.score_text}>
               Списание: Потратить бонусные баллы вы можете на услуги по
               категории любого специалиста. А именно на категории услуг:
               «Стрижка и укладка» и «Окрашивание и стрижка | По категории».

@@ -11,14 +11,20 @@ export const PreLogin = ({navigation}) => {
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.header_text}>Мой профиль</Text>
+          <Text allowFontScaling={false} style={styles.header_text}>
+            Мой профиль
+          </Text>
         </View>
         <View style={styles.content}>
           <UserAvatarIcon style={styles.content_icon} />
-          <Text style={styles.content_text}>
+          <Text allowFontScaling={false} style={styles.content_text}>
             Войдите в свой аккаунт YClients
           </Text>
-          <Button onPress={() => navigation.navigate("Login")} width={216} text={"Войти"} />
+          <Button
+            onPress={() => navigation.navigate('Login')}
+            width={216}
+            text={'Войти'}
+          />
         </View>
       </View>
       <BottomNavigator active="profile" navigation={navigation} />
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   content_text: {
-    textAlign: "center",
+    textAlign: 'center',
     width: 143,
     color: 'black',
     fontFamily: 'Inter-SemiBold',

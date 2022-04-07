@@ -83,6 +83,7 @@ export const EditEntry = ({navigation}) => {
             })
           }>
           <Text
+            allowFontScaling={false}
             style={{
               color: newDateEntry ? '#B0B0B0' : 'black',
               fontFamily: 'Inter-Medium',
@@ -119,18 +120,20 @@ export const EditEntry = ({navigation}) => {
         underButtonTitle={'Ваши записи находятся в разделе «Профиль»'}
         navigation={navigation}
         open={successEditEntry}>
-        <Text style={styles.success_edit_entry_text}>
+        <Text allowFontScaling={false} style={styles.success_edit_entry_text}>
           Мы перенесли вашу запись
         </Text>
-        <Text style={styles.success_edit_entry_sub_text}>
+        <Text
+          allowFontScaling={false}
+          style={styles.success_edit_entry_sub_text}>
           Новое время вашей записи:
         </Text>
-        <Text style={styles.success_edit_entry_date}>
+        <Text allowFontScaling={false} style={styles.success_edit_entry_date}>
           {moment(newDateEntry?.date).format('DD MMMM') +
             ' в ' +
             newDateEntry?.time}
         </Text>
-        <Text style={styles.success_edit_entry_date}>
+        <Text allowFontScaling={false} style={styles.success_edit_entry_date}>
           по адресу: {filialDetails?.address}
         </Text>
       </SuccessModal>
@@ -142,10 +145,14 @@ const DisabledTextField = ({headerTitle, value}) => {
   return (
     <View style={styles.disabled_text_field}>
       <View style={{width: '90%'}}>
-        <Text style={styles.disabled_text_field_header_text}>
+        <Text
+          allowFontScaling={false}
+          style={styles.disabled_text_field_header_text}>
           {headerTitle}
         </Text>
-        <Text style={styles.disabled_text_field_value}>{value}</Text>
+        <Text allowFontScaling={false} style={styles.disabled_text_field_value}>
+          {value}
+        </Text>
       </View>
     </View>
   );
