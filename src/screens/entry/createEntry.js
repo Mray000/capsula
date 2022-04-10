@@ -53,7 +53,7 @@ export const CreateEntry = ({navigation}) => {
 
   const [isDetails, setIsDetails] = useState(true);
   const [name, setName] = useState(profile?.name ?? '');
-  const [phone, setPhone] = useState(profile?.phone ?? '');
+  const [phone, setPhone] = useState(profile?.phone?.slice(profile?.phone?.indexOf("7") +1) ?? '');
   const [email, setEmail] = useState(profile?.email ?? '');
   const [comment, setComment] = useState('');
   const [notificationValue, setNotificationValue] = useState(null);
@@ -106,7 +106,6 @@ export const CreateEntry = ({navigation}) => {
   });
   const createEntryHandler = async () => {
 
-
     const appointment = {
       appointments: [
         {
@@ -121,7 +120,7 @@ export const CreateEntry = ({navigation}) => {
       ],
     };
     const data = {
-      phone: phone,
+      phone: FormatPhone(phone),
       fullname: name,
       email: email,
       comment: comment,
@@ -141,11 +140,10 @@ export const CreateEntry = ({navigation}) => {
     if (!CheckIsValidPhone(phone)) {
       return dispatch(setAuthError('Введите верный номер'));
     }
-
+    let format_phone = FormatPhone(phone);
     if (isAuth) {
       dispatch(createEntryTC(filial.id, appointment, data));
     } else {
-      let format_phone = FormatPhone(phone);
       await dispatch(getCode(format_phone));
       if (!error || !entryError) {
         navigation.navigate('EntryCode', {
